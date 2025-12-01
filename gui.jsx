@@ -1,22 +1,20 @@
 // gui.jsx - 配置GUI系统
 #include "config.jsx"
-
 #include "utils.jsx"
-
 #include "subtitle.jsx"
 
 // 修改颜色验证函数
 
-(function() {
+(function () {
     // 创建主窗口
     var dialog = new Window("dialog", "视频制作配置系统");
     dialog.orientation = "column";
     dialog.alignChildren = ["left", "top"];
-    dialog.preferredSize = [600, 600];
+    dialog.preferredSize = [500, 500];
 
     // 创建选项卡面板
     var tabPanel = dialog.add("tabbedpanel");
-    tabPanel.preferredSize = [580, 500];
+    tabPanel.preferredSize = [480, 400];
 
     // ==================== 基本配置选项卡 ====================
     var basicTab = tabPanel.add("tab", undefined, "基本配置");
@@ -181,17 +179,15 @@
     var textStyleRow2 = textStyleGroup.add("group");
     textStyleRow2.preferredSize = [560, 30];
 
-    var normalColorLabel = textStyleRow2.add("statictext", undefined, "普通颜色:");
+    var normalColorLabel = textStyleRow2.add("statictext", undefined, "普通颜色(16进制RGB值):");
     normalColorLabel.preferredSize = [80, 25];
     var normalColorText = textStyleRow2.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.NORMAL_COLOR);
     normalColorText.preferredSize = [120, 25];
-    normalColorText.helpTip = "16进制RGB值";
 
-    var highlightColorLabel = textStyleRow2.add("statictext", undefined, "高亮颜色:");
+    var highlightColorLabel = textStyleRow2.add("statictext", undefined, "高亮颜色(16进制RGB值):");
     highlightColorLabel.preferredSize = [80, 25];
     var highlightColorText = textStyleRow2.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.HIGHLIGHT_COLOR);
     highlightColorText.preferredSize = [120, 25];
-    highlightColorText.helpTip = "16进制RGB值";
 
     // 布局设置
     var layoutGroup = subtitleTab.add("group");

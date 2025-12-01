@@ -1,9 +1,6 @@
 // template.jsx - 模板处理功能
-
 #include "config.jsx"
-
 #include "utils.jsx"
-
 #include "subtitle.jsx"
 
 // 主模板处理函数

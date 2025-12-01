@@ -1,9 +1,10 @@
 // utils.jsx - 工具函数
-
 #include "config.jsx"
 
 function jswt(jsstr) {
-    $.writeln(jsstr);
+    // ESTK中直接使用$.writeln，添加时间戳便于调试
+    var time = new Date().toLocaleTimeString();
+    $.writeln("[" + time + "] " + jsstr);
 }
 function getFilePathWithoutExtension(filePath) {
     if (!filePath || typeof filePath !== 'string') {
@@ -151,19 +152,21 @@ function copyFileWithRenameAndOverwrite(sourceFilePath) {
 function getAllSubdirectories(parentDir) {
     var subdirs = [];
     var folder = new Folder(parentDir);
+    if (!folder.exists) return subdirs;
 
     var items = folder.getFiles();
-
-    // 遍历所有项目，筛选出目录
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        // 检查是否为目录且排除"."和".."
-        if (item.file !== "." && item.file !== "..") {
-            subdirs.push(item.fullName); // 添加绝对路径
+        if (item instanceof Folder && item.name !== "." && item.name !== "..") {
+            // 统一使用fsName获取标准化路径
+            subdirs.push(item.fsName);
         }
     }
-
     return subdirs;
+}
+
+function normalizePath(path) {
+    return new File(path).fsName;
 }
 
 function hexToRgbNormalized(hexColor) {
