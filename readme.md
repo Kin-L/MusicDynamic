@@ -10,6 +10,11 @@
 - 灵活的素材管理，支持多种文件格式
 - 根据是否包含歌词文件自动切换两种不同的模板布局
 
+### 效果预览
+具体效果参考作者B站视频
+无歌词版：https://www.bilibili.com/video/BV1bAC5BfEt3
+滚动歌词版：https://www.bilibili.com/video/BV1xTyuB1EkM
+
 ## 支持的文件格式
 - **封面/碟面/背景**：常见图片格式(PNG/JPG)及MP4视频格式
 - **歌词**：LRC格式
