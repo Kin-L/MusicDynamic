@@ -1,9 +1,9 @@
-// template.jsx - Ä£°å´¦Àí¹¦ÄÜ
+ï»¿// template.jsx - æ¨¡æ¿å¤„ç†åŠŸèƒ½
 #include "config.jsx"
 #include "utils.jsx"
 #include "subtitle.jsx"
 
-// Ö÷Ä£°å´¦Àíº¯Êı
+// ä¸»æ¨¡æ¿å¤„ç†å‡½æ•°
 function processTemplate(material, tempitems) {
     var NewMusicPath = material[3];
     var MusicName = getFileNameWithoutExtension(NewMusicPath);
@@ -85,7 +85,7 @@ function processTemplate(material, tempitems) {
     l2layer.effect.property(1).property(1).setValue(1)
     l3layer.effect.property(1).property(1).setValue(1)
 
-    // ´¦Àí¸è´ÊÎÄ¼ş
+    // å¤„ç†æ­Œè¯æ–‡ä»¶
     if (material[4]) {
         try {
             var subtitleFile = new File(material[4]);
@@ -95,10 +95,10 @@ function processTemplate(material, tempitems) {
             var timeTeams = lrcToTimeTeams(fileContent);
             // var timeTeams = parseSRT(lrcToSrt(fileContent));
             if (timeTeams.length > 0) {
-                // ´´½¨¸è´ÊºÏ³É
+                // åˆ›å»ºæ­Œè¯åˆæˆ
                 var compDuration = NewComp.duration;
                 var LyricsComp = app.project.items.addComp(
-                    "¸è´ÊºÏ³É",
+                    "æ­Œè¯åˆæˆ",
                     CONFIG.SUBTITLE.COMPOSITION.WIDTH,
                     CONFIG.SUBTITLE.COMPOSITION.HEIGHT,
                     1,
@@ -107,23 +107,23 @@ function processTemplate(material, tempitems) {
                 );
                 LyricsComp.parentFolder = NewFolder;
 
-                // ´´½¨×ÖÄ»Í¼²ã
+                // åˆ›å»ºå­—å¹•å›¾å±‚
                 createSubtitleLayers(LyricsComp, timeTeams);
 
-                // ½«¸è´ÊºÏ³ÉÌí¼Óµ½Ö÷ºÏ³ÉÖĞ
+                // å°†æ­Œè¯åˆæˆæ·»åŠ åˆ°ä¸»åˆæˆä¸­
                 var lyricsLayer = NewComp.layers.add(LyricsComp);
                 lyricsLayer.startTime = 2;
-                lyricsLayer.name = "¹ö¶¯¸è´Ê";
+                lyricsLayer.name = "æ»šåŠ¨æ­Œè¯";
                 var textProp = lyricsLayer.property("ADBE Transform Group").property("ADBE Position");
                 textProp.setValue(CONFIG.SUBTITLE.COMPOSITION.Position);
-                jswt("³É¹¦´´½¨¸è´ÊÍ¼²ã");
+                jswt("æˆåŠŸåˆ›å»ºæ­Œè¯å›¾å±‚");
             }
         } catch (e) {
-            jswt("¸è´Ê´¦ÀíÊ§°Ü: " + e.toString());
+            jswt("æ­Œè¯å¤„ç†å¤±è´¥: " + e.toString());
         }
     }
 
-    var outputPath = getFileNameWithoutExtension(NewMusicPath) + ".mp4";
+    var outputPath = getFilePathWithoutExtension(NewMusicPath) + ".mp4";
     configureRender(NewComp, outputPath);
-    jswt("³É¹¦Ìí¼ÓäÖÈ¾£º" + MusicName);
+    jswt("æˆåŠŸæ·»åŠ æ¸²æŸ“ï¼š" + MusicName);
 }

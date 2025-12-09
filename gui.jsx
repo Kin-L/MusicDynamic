@@ -1,33 +1,33 @@
-// gui.jsx - ÅäÖÃGUIÏµÍ³
+// gui.jsx - é…ç½®GUIç³»ç»Ÿ
 #include "config.jsx"
 #include "utils.jsx"
 #include "subtitle.jsx"
 
-// ĞŞ¸ÄÑÕÉ«ÑéÖ¤º¯Êı
+// ä¿®æ”¹é¢œè‰²éªŒè¯å‡½æ•°
 
 (function () {
-    // ´´½¨Ö÷´°¿Ú
-    var dialog = new Window("dialog", "ÊÓÆµÖÆ×÷ÅäÖÃÏµÍ³");
+    // åˆ›å»ºä¸»çª—å£
+    var dialog = new Window("dialog", "è§†é¢‘åˆ¶ä½œé…ç½®ç³»ç»Ÿ");
     dialog.orientation = "column";
     dialog.alignChildren = ["left", "top"];
     dialog.preferredSize = [500, 500];
 
-    // ´´½¨Ñ¡Ïî¿¨Ãæ°å
+    // åˆ›å»ºé€‰é¡¹å¡é¢æ¿
     var tabPanel = dialog.add("tabbedpanel");
     tabPanel.preferredSize = [480, 400];
 
-    // ==================== »ù±¾ÅäÖÃÑ¡Ïî¿¨ ====================
-    var basicTab = tabPanel.add("tab", undefined, "»ù±¾ÅäÖÃ");
+    // ==================== åŸºæœ¬é…ç½®é€‰é¡¹å¡ ====================
+    var basicTab = tabPanel.add("tab", undefined, "åŸºæœ¬é…ç½®");
     basicTab.orientation = "column";
     basicTab.alignChildren = ["left", "top"];
 
-    // ÎÄ¼ş¼ĞÅäÖÃÇøÓò
+    // æ–‡ä»¶å¤¹é…ç½®åŒºåŸŸ
     var folderGroup = basicTab.add("group");
     folderGroup.orientation = "column";
     folderGroup.alignChildren = ["left", "center"];
     folderGroup.preferredSize = [560, 80];
 
-    var folderLabel = folderGroup.add("statictext", undefined, "ËØ²ÄÎÄ¼ş¼ĞÂ·¾¶:");
+    var folderLabel = folderGroup.add("statictext", undefined, "ç´ ææ–‡ä»¶å¤¹è·¯å¾„:");
     folderLabel.preferredSize = [560, 20];
 
     var folderPathGroup = folderGroup.add("group");
@@ -36,16 +36,16 @@
     var folderText = folderPathGroup.add("edittext", undefined, CONFIG.FOLDER_PATH);
     folderText.preferredSize = [480, 25];
 
-    var folderButton = folderPathGroup.add("button", undefined, "ä¯ÀÀ");
+    var folderButton = folderPathGroup.add("button", undefined, "æµè§ˆ");
     folderButton.preferredSize = [60, 25];
 
-    // AEPÄ£°åÅäÖÃÇøÓò
+    // AEPæ¨¡æ¿é…ç½®åŒºåŸŸ
     var aepGroup = basicTab.add("group");
     aepGroup.orientation = "column";
     aepGroup.alignChildren = ["left", "center"];
     aepGroup.preferredSize = [560, 80];
 
-    var aepLabel = aepGroup.add("statictext", undefined, "AEPÄ£°åÎÄ¼şÂ·¾¶:");
+    var aepLabel = aepGroup.add("statictext", undefined, "AEPæ¨¡æ¿æ–‡ä»¶è·¯å¾„:");
     aepLabel.preferredSize = [560, 20];
 
     var aepPathGroup = aepGroup.add("group");
@@ -54,10 +54,10 @@
     var aepText = aepPathGroup.add("edittext", undefined, CONFIG.AEP_PATH);
     aepText.preferredSize = [480, 25];
 
-    var aepButton = aepPathGroup.add("button", undefined, "ä¯ÀÀ");
+    var aepButton = aepPathGroup.add("button", undefined, "æµè§ˆ");
     aepButton.preferredSize = [60, 25];
 
-    // »ù±¾ĞÅÏ¢ÅäÖÃÇøÓò
+    // åŸºæœ¬ä¿¡æ¯é…ç½®åŒºåŸŸ
     var infoGroup = basicTab.add("group");
     infoGroup.orientation = "row";
     infoGroup.alignChildren = ["left", "center"];
@@ -67,7 +67,7 @@
     artistGroup.orientation = "column";
     artistGroup.preferredSize = [270, 60];
 
-    var artistLabel = artistGroup.add("statictext", undefined, "ÒÕÊõ¼ÒÃû³Æ:");
+    var artistLabel = artistGroup.add("statictext", undefined, "è‰ºæœ¯å®¶åç§°:");
     artistLabel.preferredSize = [270, 20];
     var artistText = artistGroup.add("edittext", undefined, CONFIG.ARTIST_NAME);
     artistText.preferredSize = [270, 25];
@@ -76,61 +76,61 @@
     versionGroup.orientation = "column";
     versionGroup.preferredSize = [270, 60];
 
-    var versionLabel = versionGroup.add("statictext", undefined, "¸±±êÌâÃû³Æ:");
+    var versionLabel = versionGroup.add("statictext", undefined, "å‰¯æ ‡é¢˜åç§°:");
     versionLabel.preferredSize = [270, 20];
     var versionText = versionGroup.add("edittext", undefined, CONFIG.VERSION_NAME);
     versionText.preferredSize = [270, 25];
 
-    // Ä¿Â¼´´½¨ÇøÓò
+    // ç›®å½•åˆ›å»ºåŒºåŸŸ
     var createGroup = basicTab.add("group");
     createGroup.orientation = "column";
     createGroup.alignChildren = ["left", "center"];
     createGroup.preferredSize = [560, 80];
 
-    var createLabel = createGroup.add("statictext", undefined, "ÔÚËØ²ÄÎÄ¼ş¼ĞÂ·¾¶´´½¨Ä¿Â¼½á¹¹:");
+    var createLabel = createGroup.add("statictext", undefined, "åœ¨ç´ ææ–‡ä»¶å¤¹è·¯å¾„åˆ›å»ºç›®å½•ç»“æ„:");
     createLabel.preferredSize = [560, 20];
 
     var createInputGroup = createGroup.add("group");
     createInputGroup.preferredSize = [560, 30];
 
-    var numLabel = createInputGroup.add("statictext", undefined, "ËØ²Ä×éÊıÁ¿:");
+    var numLabel = createInputGroup.add("statictext", undefined, "ç´ æç»„æ•°é‡:");
     numLabel.preferredSize = [80, 25];
 
     var numText = createInputGroup.add("edittext", undefined, "0");
     numText.preferredSize = [80, 25];
 
-    var createButton = createInputGroup.add("button", undefined, "´´½¨Ä¿Â¼");
+    var createButton = createInputGroup.add("button", undefined, "åˆ›å»ºç›®å½•");
     createButton.preferredSize = [100, 25];
 
-    // ==================== ×ÖÄ»ÅäÖÃÑ¡Ïî¿¨ ====================
-    var subtitleTab = tabPanel.add("tab", undefined, "×ÖÄ»ÅäÖÃ");
+    // ==================== å­—å¹•é…ç½®é€‰é¡¹å¡ ====================
+    var subtitleTab = tabPanel.add("tab", undefined, "å­—å¹•é…ç½®");
     subtitleTab.orientation = "column";
     subtitleTab.alignChildren = ["left", "top"];
 
-    // ºÏ³ÉÉèÖÃ
+    // åˆæˆè®¾ç½®
     var compGroup = subtitleTab.add("group");
     compGroup.orientation = "column";
     compGroup.alignChildren = ["left", "center"];
     compGroup.preferredSize = [560, 120];
 
-    var compLabel = compGroup.add("statictext", undefined, "ºÏ³ÉÉèÖÃ:");
+    var compLabel = compGroup.add("statictext", undefined, "åˆæˆè®¾ç½®:");
     compLabel.preferredSize = [560, 20];
     compLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
 
     var compRow1 = compGroup.add("group");
     compRow1.preferredSize = [560, 30];
 
-    var widthLabel = compRow1.add("statictext", undefined, "¿í¶È:");
+    var widthLabel = compRow1.add("statictext", undefined, "å®½åº¦:");
     widthLabel.preferredSize = [60, 25];
     var widthText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.WIDTH.toString());
     widthText.preferredSize = [80, 25];
 
-    var heightLabel = compRow1.add("statictext", undefined, "¸ß¶È:");
+    var heightLabel = compRow1.add("statictext", undefined, "é«˜åº¦:");
     heightLabel.preferredSize = [60, 25];
     var heightText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.HEIGHT.toString());
     heightText.preferredSize = [80, 25];
 
-    var fpsLabel = compRow1.add("statictext", undefined, "Ö¡ÂÊ:");
+    var fpsLabel = compRow1.add("statictext", undefined, "å¸§ç‡:");
     fpsLabel.preferredSize = [60, 25];
     var fpsText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.FPS.toString());
     fpsText.preferredSize = [80, 25];
@@ -138,40 +138,40 @@
     var compRow2 = compGroup.add("group");
     compRow2.preferredSize = [560, 30];
 
-    var posXLabel = compRow2.add("statictext", undefined, "Î»ÖÃ X:");
+    var posXLabel = compRow2.add("statictext", undefined, "ä½ç½® X:");
     posXLabel.preferredSize = [60, 25];
     var posXText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.Position[0].toString());
     posXText.preferredSize = [80, 25];
 
-    var posYLabel = compRow2.add("statictext", undefined, "Î»ÖÃ Y:");
+    var posYLabel = compRow2.add("statictext", undefined, "ä½ç½® Y:");
     posYLabel.preferredSize = [60, 25];
     var posYText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.Position[1].toString());
     posYText.preferredSize = [80, 25];
 
-    var nameLabel = compRow2.add("statictext", undefined, "ºÏ³ÉÃû³Æ:");
+    var nameLabel = compRow2.add("statictext", undefined, "åˆæˆåç§°:");
     nameLabel.preferredSize = [80, 25];
     var nameText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.NAME);
     nameText.preferredSize = [120, 25];
 
-    // ÎÄ±¾ÑùÊ½ÉèÖÃ
+    // æ–‡æœ¬æ ·å¼è®¾ç½®
     var textStyleGroup = subtitleTab.add("group");
     textStyleGroup.orientation = "column";
     textStyleGroup.alignChildren = ["left", "center"];
     textStyleGroup.preferredSize = [560, 120];
 
-    var textStyleLabel = textStyleGroup.add("statictext", undefined, "ÎÄ±¾ÑùÊ½:");
+    var textStyleLabel = textStyleGroup.add("statictext", undefined, "æ–‡æœ¬æ ·å¼:");
     textStyleLabel.preferredSize = [560, 20];
     textStyleLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
 
     var textStyleRow1 = textStyleGroup.add("group");
     textStyleRow1.preferredSize = [560, 30];
 
-    var fontSizeLabel = textStyleRow1.add("statictext", undefined, "×ÖÌå´óĞ¡:");
+    var fontSizeLabel = textStyleRow1.add("statictext", undefined, "å­—ä½“å¤§å°:");
     fontSizeLabel.preferredSize = [80, 25];
     var fontSizeText = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.FONT_SIZE.toString());
     fontSizeText.preferredSize = [80, 25];
 
-    var strokeLabel = textStyleRow1.add("statictext", undefined, "Ãè±ß¿í¶È:");
+    var strokeLabel = textStyleRow1.add("statictext", undefined, "æè¾¹å®½åº¦:");
     strokeLabel.preferredSize = [80, 25];
     var strokeText = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.STROKE_WIDTH.toString());
     strokeText.preferredSize = [80, 25];
@@ -179,167 +179,167 @@
     var textStyleRow2 = textStyleGroup.add("group");
     textStyleRow2.preferredSize = [560, 30];
 
-    var normalColorLabel = textStyleRow2.add("statictext", undefined, "ÆÕÍ¨ÑÕÉ«(16½øÖÆRGBÖµ):");
+    var normalColorLabel = textStyleRow2.add("statictext", undefined, "æ™®é€šé¢œè‰²(16è¿›åˆ¶RGBå€¼):");
     normalColorLabel.preferredSize = [80, 25];
     var normalColorText = textStyleRow2.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.NORMAL_COLOR);
     normalColorText.preferredSize = [120, 25];
 
-    var highlightColorLabel = textStyleRow2.add("statictext", undefined, "¸ßÁÁÑÕÉ«(16½øÖÆRGBÖµ):");
+    var highlightColorLabel = textStyleRow2.add("statictext", undefined, "é«˜äº®é¢œè‰²(16è¿›åˆ¶RGBå€¼):");
     highlightColorLabel.preferredSize = [80, 25];
     var highlightColorText = textStyleRow2.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.HIGHLIGHT_COLOR);
     highlightColorText.preferredSize = [120, 25];
 
-    // ²¼¾ÖÉèÖÃ
+    // å¸ƒå±€è®¾ç½®
     var layoutGroup = subtitleTab.add("group");
     layoutGroup.orientation = "column";
     layoutGroup.alignChildren = ["left", "center"];
     layoutGroup.preferredSize = [560, 100];
 
-    var layoutLabel = layoutGroup.add("statictext", undefined, "²¼¾ÖÉèÖÃ:");
+    var layoutLabel = layoutGroup.add("statictext", undefined, "å¸ƒå±€è®¾ç½®:");
     layoutLabel.preferredSize = [560, 20];
     layoutLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
 
     var layoutRow1 = layoutGroup.add("group");
     layoutRow1.preferredSize = [560, 30];
 
-    var lineSpacingLabel = layoutRow1.add("statictext", undefined, "ĞĞ¼ä¾à:");
+    var lineSpacingLabel = layoutRow1.add("statictext", undefined, "è¡Œé—´è·:");
     lineSpacingLabel.preferredSize = [80, 25];
     var lineSpacingText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.LINE_SPACING.toString());
     lineSpacingText.preferredSize = [80, 25];
 
-    var paraSpacingLabel = layoutRow1.add("statictext", undefined, "¶Î¼ä¾à:");
+    var paraSpacingLabel = layoutRow1.add("statictext", undefined, "æ®µé—´è·:");
     paraSpacingLabel.preferredSize = [80, 25];
     var paraSpacingText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING.toString());
     paraSpacingText.preferredSize = [80, 25];
 
-    var initialOffsetLabel = layoutRow1.add("statictext", undefined, "³õÊ¼Æ«ÒÆ:");
+    var initialOffsetLabel = layoutRow1.add("statictext", undefined, "åˆå§‹åç§»:");
     initialOffsetLabel.preferredSize = [80, 25];
     var initialOffsetText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.INITIAL_OFFSET.toString());
     initialOffsetText.preferredSize = [80, 25];
 
-    // ¶¯»­ÉèÖÃ
+    // åŠ¨ç”»è®¾ç½®
     var animationGroup = subtitleTab.add("group");
     animationGroup.orientation = "column";
     animationGroup.alignChildren = ["left", "center"];
     animationGroup.preferredSize = [560, 100];
 
-    var animationLabel = animationGroup.add("statictext", undefined, "¶¯»­ÉèÖÃ:");
+    var animationLabel = animationGroup.add("statictext", undefined, "åŠ¨ç”»è®¾ç½®:");
     animationLabel.preferredSize = [560, 20];
     animationLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
 
     var animationRow1 = animationGroup.add("group");
     animationRow1.preferredSize = [560, 30];
 
-    var durationLabel = animationRow1.add("statictext", undefined, "¶¯»­Ê±³¤:");
+    var durationLabel = animationRow1.add("statictext", undefined, "åŠ¨ç”»æ—¶é•¿:");
     durationLabel.preferredSize = [80, 25];
     var durationText = animationRow1.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.DURATION.toString());
     durationText.preferredSize = [80, 25];
-    durationText.helpTip = "Ãë";
+    durationText.helpTip = "ç§’";
 
-    var fadeDelayLabel = animationRow1.add("statictext", undefined, "µ­³öÑÓ³Ù:");
+    var fadeDelayLabel = animationRow1.add("statictext", undefined, "æ·¡å‡ºå»¶è¿Ÿ:");
     fadeDelayLabel.preferredSize = [80, 25];
     var fadeDelayText = animationRow1.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.FADE_OUT_DELAY.toString());
     fadeDelayText.preferredSize = [80, 25];
-    fadeDelayText.helpTip = "Ãë";
+    fadeDelayText.helpTip = "ç§’";
 
     var animationRow2 = animationGroup.add("group");
     animationRow2.preferredSize = [560, 30];
 
-    var normalScaleLabel = animationRow2.add("statictext", undefined, "Õı³£Ëõ·Å:");
+    var normalScaleLabel = animationRow2.add("statictext", undefined, "æ­£å¸¸ç¼©æ”¾:");
     normalScaleLabel.preferredSize = [80, 25];
     var normalScaleText = animationRow2.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE.toString());
     normalScaleText.preferredSize = [80, 25];
-    normalScaleText.helpTip = "°Ù·Ö±È";
+    normalScaleText.helpTip = "ç™¾åˆ†æ¯”";
 
-    var highlightScaleLabel = animationRow2.add("statictext", undefined, "¸ßÁÁËõ·Å:");
+    var highlightScaleLabel = animationRow2.add("statictext", undefined, "é«˜äº®ç¼©æ”¾:");
     highlightScaleLabel.preferredSize = [80, 25];
     var highlightScaleText = animationRow2.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE.toString());
     highlightScaleText.preferredSize = [80, 25];
-    highlightScaleText.helpTip = "°Ù·Ö±È";
+    highlightScaleText.helpTip = "ç™¾åˆ†æ¯”";
 
-    // ==================== °´Å¥ÇøÓò ====================
+    // ==================== æŒ‰é’®åŒºåŸŸ ====================
     var buttonGroup = dialog.add("group");
     buttonGroup.orientation = "row";
     buttonGroup.alignChildren = ["center", "center"];
     buttonGroup.preferredSize = [580, 40];
 
-    var saveButton = buttonGroup.add("button", undefined, "±£´æÅäÖÃ");
+    var saveButton = buttonGroup.add("button", undefined, "ä¿å­˜é…ç½®");
     saveButton.preferredSize = [100, 30];
 
-    var runButton = buttonGroup.add("button", undefined, "ÔËĞĞÖ÷³ÌĞò");
+    var runButton = buttonGroup.add("button", undefined, "è¿è¡Œä¸»ç¨‹åº");
     runButton.preferredSize = [100, 30];
 
-    var cancelButton = buttonGroup.add("button", undefined, "È¡Ïû");
+    var cancelButton = buttonGroup.add("button", undefined, "å–æ¶ˆ");
     cancelButton.preferredSize = [100, 30];
 
-    // ==================== ÊÂ¼ş´¦Àí ====================
-    // ä¯ÀÀÎÄ¼ş¼Ğ
+    // ==================== äº‹ä»¶å¤„ç† ====================
+    // æµè§ˆæ–‡ä»¶å¤¹
     folderButton.onClick = function() {
-        var selectedFolder = Folder.selectDialog("Ñ¡ÔñËØ²ÄÎÄ¼ş¼Ğ");
+        var selectedFolder = Folder.selectDialog("é€‰æ‹©ç´ ææ–‡ä»¶å¤¹");
         if (selectedFolder) {
             folderText.text = selectedFolder.fsName;
         }
     };
 
-    // ä¯ÀÀAEPÎÄ¼ş
+    // æµè§ˆAEPæ–‡ä»¶
     aepButton.onClick = function() {
-        var selectedFile = File.openDialog("Ñ¡ÔñAEPÄ£°åÎÄ¼ş", "*.aep");
+        var selectedFile = File.openDialog("é€‰æ‹©AEPæ¨¡æ¿æ–‡ä»¶", "*.aep");
         if (selectedFile) {
             aepText.text = selectedFile.fsName;
         }
     };
 
-    // ´´½¨Ä¿Â¼½á¹¹
+    // åˆ›å»ºç›®å½•ç»“æ„
     createButton.onClick = function() {
         var num;
         try {
             num = parseInt(numText.text);
             if (isNaN(num) || num < 0) {
-                alert("ÇëÊäÈëÓĞĞ§µÄÊı×Ö");
+                alert("è¯·è¾“å…¥æœ‰æ•ˆçš„æ•°å­—");
                 return;
             }
         } catch (e) {
-            alert("ÇëÊäÈëÓĞĞ§µÄÊı×Ö");
+            alert("è¯·è¾“å…¥æœ‰æ•ˆçš„æ•°å­—");
             return;
         }
 
         var baseFolderPath = folderText.text;
         if (!baseFolderPath) {
-            alert("ÇëÏÈÉèÖÃËØ²ÄÎÄ¼ş¼ĞÂ·¾¶");
+            alert("è¯·å…ˆè®¾ç½®ç´ ææ–‡ä»¶å¤¹è·¯å¾„");
             return;
         }
 
         createDirectoryStructure(baseFolderPath, num);
     };
 
-    // ±£´æÅäÖÃ
+    // ä¿å­˜é…ç½®
     saveButton.onClick = function() {
         if (saveConfig()) {
-            alert("ÅäÖÃ±£´æ³É¹¦£¡");
+            alert("é…ç½®ä¿å­˜æˆåŠŸï¼");
         }
     };
 
-    // ÔËĞĞÖ÷³ÌĞò
+    // è¿è¡Œä¸»ç¨‹åº
     runButton.onClick = function() {
         if (saveConfig()) {
-            // ÔËĞĞÖ÷³ÌĞò
+            // è¿è¡Œä¸»ç¨‹åº
             $.evalFile(File($.fileName).path + "/main.jsx");
 
         }
     };
 
-    // È¡Ïû
+    // å–æ¶ˆ
     cancelButton.onClick = function() {
         dialog.close();
     };
 
-    // ==================== ¹¦ÄÜº¯Êı ====================
+    // ==================== åŠŸèƒ½å‡½æ•° ====================
 
-    // ´´½¨Ä¿Â¼½á¹¹º¯Êı
+    // åˆ›å»ºç›®å½•ç»“æ„å‡½æ•°
     function createDirectoryStructure(baseFolderPath, num) {
         try {
-            // ´´½¨Ö÷Ä¿Â¼½á¹¹
-            var mainFolders = ["ÒôÀÖ", "±³¾°Í¼²ã", "·âÃæÍ¼²ã", "µúÆ¬Í¼²ã", "¸è´Ê"];
+            // åˆ›å»ºä¸»ç›®å½•ç»“æ„
+            var mainFolders = ["éŸ³ä¹", "èƒŒæ™¯å›¾å±‚", "å°é¢å›¾å±‚", "ç¢Ÿç‰‡å›¾å±‚", "æ­Œè¯"];
 
             for (var i = 0; i < mainFolders.length; i++) {
                 var folderPath = new Folder(baseFolderPath + "/" + mainFolders[i]);
@@ -348,15 +348,15 @@
                 }
             }
 
-            // ´´½¨ËØ²Ä×é
+            // åˆ›å»ºç´ æç»„
             for (var j = 1; j <= num; j++) {
-                var materialGroup = "ËØ²Ä×é" + j;
+                var materialGroup = "ç´ æç»„" + j;
                 var materialPath = new Folder(baseFolderPath + "/" + materialGroup);
                 if (!materialPath.exists) {
                     materialPath.create();
                 }
 
-                // ÔÚÃ¿¸öËØ²Ä×éÏÂ´´½¨×ÓÄ¿Â¼
+                // åœ¨æ¯ä¸ªç´ æç»„ä¸‹åˆ›å»ºå­ç›®å½•
                 for (var k = 0; k < mainFolders.length; k++) {
                     var subFolderPath = new Folder(materialPath.fsName + "/" + mainFolders[k]);
                     if (!subFolderPath.exists) {
@@ -365,89 +365,89 @@
                 }
             }
 
-            alert("Ä¿Â¼½á¹¹´´½¨³É¹¦£¡\nÔÚ " + baseFolderPath + " ÖĞ´´½¨ÁË " + num + " ¸öËØ²Ä×é");
+            alert("ç›®å½•ç»“æ„åˆ›å»ºæˆåŠŸï¼\nåœ¨ " + baseFolderPath + " ä¸­åˆ›å»ºäº† " + num + " ä¸ªç´ æç»„");
 
         } catch (e) {
-            alert("´´½¨Ä¿Â¼Ê±³öÏÖ´íÎó£º" + e.toString());
+            alert("åˆ›å»ºç›®å½•æ—¶å‡ºç°é”™è¯¯ï¼š" + e.toString());
         }
     }
 
-    // ÑéÖ¤ÑÕÉ«¸ñÊ½
+    // éªŒè¯é¢œè‰²æ ¼å¼
     function validateColor(colorText) {
         return /^#[0-9A-F]{6}$/i.test(colorText);
     }
 
-    // ±£´æÅäÖÃµ½config.jsx
+    // ä¿å­˜é…ç½®åˆ°config.jsx
     function saveConfig() {
-        // ÑéÖ¤ÑÕÉ«¸ñÊ½
+        // éªŒè¯é¢œè‰²æ ¼å¼
         if (!validateColor(normalColorText.text)) {
-            alert("´íÎó£ºÆÕÍ¨ÑÕÉ«¸ñÊ½²»ÕıÈ·£¡\nÇëÊ¹ÓÃRGB¸ñÊ½£¬Èç£º#FFFFFF");
+            alert("é”™è¯¯ï¼šæ™®é€šé¢œè‰²æ ¼å¼ä¸æ­£ç¡®ï¼\nè¯·ä½¿ç”¨RGBæ ¼å¼ï¼Œå¦‚ï¼š#FFFFFF");
             normalColorText.active = true;
             return false;
         }
 
         if (!validateColor(highlightColorText.text)) {
-            alert("´íÎó£º¸ßÁÁÑÕÉ«¸ñÊ½²»ÕıÈ·£¡\nÇëÊ¹ÓÃRGB¸ñÊ½£¬Èç£º#FFCC33");
+            alert("é”™è¯¯ï¼šé«˜äº®é¢œè‰²æ ¼å¼ä¸æ­£ç¡®ï¼\nè¯·ä½¿ç”¨RGBæ ¼å¼ï¼Œå¦‚ï¼š#FFCC33");
             highlightColorText.active = true;
             return false;
         }
 
-        // ÑéÖ¤Êı×Ö×Ö¶Î
+        // éªŒè¯æ•°å­—å­—æ®µ
         var numberFields = [{
                 field: widthText,
-                name: "ºÏ³É¿í¶È"
+                name: "åˆæˆå®½åº¦"
             },
             {
                 field: heightText,
-                name: "ºÏ³É¸ß¶È"
+                name: "åˆæˆé«˜åº¦"
             },
             {
                 field: fpsText,
-                name: "Ö¡ÂÊ"
+                name: "å¸§ç‡"
             },
             {
                 field: posXText,
-                name: "Î»ÖÃX"
+                name: "ä½ç½®X"
             },
             {
                 field: posYText,
-                name: "Î»ÖÃY"
+                name: "ä½ç½®Y"
             },
             {
                 field: fontSizeText,
-                name: "×ÖÌå´óĞ¡"
+                name: "å­—ä½“å¤§å°"
             },
             {
                 field: strokeText,
-                name: "Ãè±ß¿í¶È"
+                name: "æè¾¹å®½åº¦"
             },
             {
                 field: lineSpacingText,
-                name: "ĞĞ¼ä¾à"
+                name: "è¡Œé—´è·"
             },
             {
                 field: paraSpacingText,
-                name: "¶Î¼ä¾à"
+                name: "æ®µé—´è·"
             },
             {
                 field: initialOffsetText,
-                name: "³õÊ¼Æ«ÒÆ"
+                name: "åˆå§‹åç§»"
             },
             {
                 field: durationText,
-                name: "¶¯»­Ê±³¤"
+                name: "åŠ¨ç”»æ—¶é•¿"
             },
             {
                 field: fadeDelayText,
-                name: "µ­³öÑÓ³Ù"
+                name: "æ·¡å‡ºå»¶è¿Ÿ"
             },
             {
                 field: normalScaleText,
-                name: "Õı³£Ëõ·Å"
+                name: "æ­£å¸¸ç¼©æ”¾"
             },
             {
                 field: highlightScaleText,
-                name: "¸ßÁÁËõ·Å"
+                name: "é«˜äº®ç¼©æ”¾"
             }
         ];
 
@@ -455,7 +455,7 @@
             var field = numberFields[i];
             var value = parseFloat(field.field.text);
             if (isNaN(value)) {
-                alert("´íÎó£º" + field.name + "±ØĞëÊÇÊı×Ö£¡");
+                alert("é”™è¯¯ï¼š" + field.name + "å¿…é¡»æ˜¯æ•°å­—ï¼");
                 field.field.active = true;
                 return false;
             }
@@ -469,36 +469,36 @@
             configFile.write(configContent);
             configFile.close();
 
-            // ÖØĞÂ¼ÓÔØÅäÖÃ
+            // é‡æ–°åŠ è½½é…ç½®
             $.evalFile(configFile);
             return true;
 
         } catch (e) {
-            alert("±£´æÅäÖÃÊ±³ö´í£º" + e.toString());
+            alert("ä¿å­˜é…ç½®æ—¶å‡ºé”™ï¼š" + e.toString());
             return false;
         }
     }
 
-    // Éú³ÉÅäÖÃÎÄ¼şÄÚÈİ£¨ÓÅ»¯°æ£©
+    // ç”Ÿæˆé…ç½®æ–‡ä»¶å†…å®¹ï¼ˆä¼˜åŒ–ç‰ˆï¼‰
     function generateConfigContent() {
-        var content = '// config.jsx - ÅäÖÃĞÅÏ¢½Å±¾\n\n';
-        content += '// ==================== ÅäÖÃÇøÓò ====================\n\n';
-        content += '// ËØ²ÄÎÄ¼ş¼ĞÂ·¾¶£¬±ØÌî\n';
+        var content = '// config.jsx - é…ç½®ä¿¡æ¯è„šæœ¬\n\n';
+        content += '// ==================== é…ç½®åŒºåŸŸ ====================\n\n';
+        content += '// ç´ ææ–‡ä»¶å¤¹è·¯å¾„ï¼Œå¿…å¡«\n';
         content += 'var CONFIG = {\n';
         content += '    FOLDER_PATH: "' + folderText.text + '",\n';
         content += '    \n';
-        content += '    // aepÄ£°åÎÄ¼şÂ·¾¶£¬±ØÌî\n';
+        content += '    // aepæ¨¡æ¿æ–‡ä»¶è·¯å¾„ï¼Œå¿…å¡«\n';
         content += '    AEP_PATH: "' + aepText.text + '",\n';
         content += '    \n';
-        content += '    // ÒÕÊõ¼ÒÃû³Æ£¬ÌîĞ´ºó¸²¸ÇWAV ÒôÀÖÎÄ¼şÃûµÄÒÕÊõ¼Ò£¬¿É²»Ìî\n';
+        content += '    // è‰ºæœ¯å®¶åç§°ï¼Œå¡«å†™åè¦†ç›–WAV éŸ³ä¹æ–‡ä»¶åçš„è‰ºæœ¯å®¶ï¼Œå¯ä¸å¡«\n';
         content += '    ARTIST_NAME: "' + artistText.text + '",\n';
         content += '    \n';
-        content += '    // ¸±±êÌâÃû³Æ£¬¿É²»Ìî\n';
+        content += '    // å‰¯æ ‡é¢˜åç§°ï¼Œå¯ä¸å¡«\n';
         content += '    VERSION_NAME: "' + versionText.text + '",\n';
         content += '    \n';
-        content += '    // ==================== ×ÖÄ»ÑùÊ½ÅäÖÃÇøÓò ====================\n';
+        content += '    // ==================== å­—å¹•æ ·å¼é…ç½®åŒºåŸŸ ====================\n';
         content += '    SUBTITLE: {\n';
-        content += '        // ºÏ³ÉÉèÖÃ\n';
+        content += '        // åˆæˆè®¾ç½®\n';
         content += '        COMPOSITION: {\n';
         content += '            WIDTH: ' + parseInt(widthText.text) + ',\n';
         content += '            HEIGHT: ' + parseInt(heightText.text) + ',\n';
@@ -507,36 +507,36 @@
         content += '            NAME: "' + nameText.text + '"\n';
         content += '        },\n';
         content += '        \n';
-        content += '        // ÎÄ±¾ÑùÊ½\n';
+        content += '        // æ–‡æœ¬æ ·å¼\n';
         content += '        TEXT_STYLE: {\n';
         content += '            FONT_SIZE: ' + parseFloat(fontSizeText.text) + ',\n';
         content += '            STROKE_WIDTH: ' + parseFloat(strokeText.text) + ',\n';
-        content += '            NORMAL_COLOR: "' + normalColorText.text + '", // °×É«\n';
-        content += '            HIGHLIGHT_COLOR: "' + highlightColorText.text + '", // ½ğÉ«\n';
+        content += '            NORMAL_COLOR: "' + normalColorText.text + '", // ç™½è‰²\n';
+        content += '            HIGHLIGHT_COLOR: "' + highlightColorText.text + '", // é‡‘è‰²\n';
         content += '            JUSTIFICATION: ParagraphJustification.CENTER_JUSTIFY\n';
         content += '        },\n';
         content += '        \n';
-        content += '        // ²¼¾ÖÉèÖÃ\n';
+        content += '        // å¸ƒå±€è®¾ç½®\n';
         content += '        LAYOUT: {\n';
-        content += '            LINE_SPACING: ' + parseFloat(lineSpacingText.text) + ', // ĞĞ¼ä¾à\n';
-        content += '            PARAGRAPH_SPACING: ' + parseFloat(paraSpacingText.text) + ', // ¶Î¼ä¾à\n';
-        content += '            INITIAL_OFFSET: ' + parseFloat(initialOffsetText.text) + ' // ³õÊ¼Æ«ÒÆ\n';
+        content += '            LINE_SPACING: ' + parseFloat(lineSpacingText.text) + ', // è¡Œé—´è·\n';
+        content += '            PARAGRAPH_SPACING: ' + parseFloat(paraSpacingText.text) + ', // æ®µé—´è·\n';
+        content += '            INITIAL_OFFSET: ' + parseFloat(initialOffsetText.text) + ' // åˆå§‹åç§»\n';
         content += '        },\n';
         content += '        \n';
-        content += '        // ¶¯»­ÉèÖÃ\n';
+        content += '        // åŠ¨ç”»è®¾ç½®\n';
         content += '        ANIMATION: {\n';
-        content += '            DURATION: ' + parseFloat(durationText.text) + ', // ¶¯»­³ÖĞøÊ±¼ä£¨Ãë£©\n';
-        content += '            HIGHLIGHT_SCALE: ' + parseFloat(highlightScaleText.text) + ', // Ç¿µ÷Ëõ·Å°Ù·Ö±È\n';
-        content += '            NORMAL_SCALE: ' + parseFloat(normalScaleText.text) + ', // Õı³£Ëõ·Å°Ù·Ö±È\n';
-        content += '            FADE_OUT_DELAY: ' + parseFloat(fadeDelayText.text) + ' // µ­³öÑÓ³Ù£¨Ãë£©\n';
+        content += '            DURATION: ' + parseFloat(durationText.text) + ', // åŠ¨ç”»æŒç»­æ—¶é—´ï¼ˆç§’ï¼‰\n';
+        content += '            HIGHLIGHT_SCALE: ' + parseFloat(highlightScaleText.text) + ', // å¼ºè°ƒç¼©æ”¾ç™¾åˆ†æ¯”\n';
+        content += '            NORMAL_SCALE: ' + parseFloat(normalScaleText.text) + ', // æ­£å¸¸ç¼©æ”¾ç™¾åˆ†æ¯”\n';
+        content += '            FADE_OUT_DELAY: ' + parseFloat(fadeDelayText.text) + ' // æ·¡å‡ºå»¶è¿Ÿï¼ˆç§’ï¼‰\n';
         content += '        }\n';
         content += '    }\n';
         content += '};\n\n';
-        content += '// ==================== ÅäÖÃÇøÓò½áÊø ====================';
+        content += '// ==================== é…ç½®åŒºåŸŸç»“æŸ ====================';
 
         return content;
     }
 
-    // ÏÔÊ¾¶Ô»°¿ò
+    // æ˜¾ç¤ºå¯¹è¯æ¡†
     dialog.show();
 })();

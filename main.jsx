@@ -42,12 +42,11 @@ try {
         CONFIG.ARTIST_NAME,
         CONFIG.VERSION_NAME
     ];
-    // jswt("CONFIG.FOLDER_PATH:"+ CONFIG.FOLDER_PATH)
-    var backfiles = getAllSubdirectories(CONFIG.FOLDER_PATH + "/背景图层");
-    var coverfiles = getAllSubdirectories(CONFIG.FOLDER_PATH + "/封面图层");
-    var discfiles = getAllSubdirectories(CONFIG.FOLDER_PATH + "/碟片图层");
-    var musicfiles = getAllSubdirectories(CONFIG.FOLDER_PATH + "/音乐");
-    var lyricsfiles = getAllSubdirectories(CONFIG.FOLDER_PATH + "/歌词");
+    var backfiles = getAllFilePaths(CONFIG.FOLDER_PATH + "/背景图层");
+    var coverfiles = getAllFilePaths(CONFIG.FOLDER_PATH + "/封面图层");
+    var discfiles = getAllFilePaths(CONFIG.FOLDER_PATH + "/碟片图层");
+    var musicfiles = getAllFilePaths(CONFIG.FOLDER_PATH + "/音乐");
+    var lyricsfiles = getAllFilePaths(CONFIG.FOLDER_PATH + "/歌词");
     var backcount = 0;
     var covercount = 0;
     var disccount = 0;
@@ -65,10 +64,10 @@ try {
             discfiles[disccount],
             file
         ];
-        var lrcpath = getFilePathWithoutExtension(file).replace("/音乐/", "/歌词/") + ".lrc";
-        // jswt(lrcpath)
-        // jswt(lyricsfiles)
-        if (lyricsfiles.indexOf(lrcpath) !== -1) {
+        var lrcpath = CONFIG.FOLDER_PATH + "/歌词/" + getFileNameWithoutExtension(file) + ".lrc";
+        //jswt(lrcpath)
+		var lrcfile = new Folder(lrcpath);
+        if (lrcfile.exists) {
             material.push(lrcpath);
         } else {
             material.push("");

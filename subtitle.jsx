@@ -1,11 +1,11 @@
-// subtitle.jsx - ×ÖÄ»´¦Àí¹¦ÄÜ
+// subtitle.jsx - å­—å¹•å¤„ç†åŠŸèƒ½
 #include "config.jsx"
 #include "utils.jsx"
 
 
-// ==================== ×ÖÄ»¹¦ÄÜº¯Êı ====================
+// ==================== å­—å¹•åŠŸèƒ½å‡½æ•° ====================
 
-// ¼æÈİĞÔ´¦Àí - Ìí¼ÓÈ±Ê§µÄÊı×é·½·¨
+// å…¼å®¹æ€§å¤„ç† - æ·»åŠ ç¼ºå¤±çš„æ•°ç»„æ–¹æ³•
 if (!Array.prototype.forEach) {
     Array.prototype.forEach = function(callback, thisArg) {
         var T, k;
@@ -32,14 +32,14 @@ if (!Array.prototype.forEach) {
     };
 }
 
-// ¼æÈİĞÔ´¦Àí - Ìí¼Ó×Ö·û´®trim·½·¨
+// å…¼å®¹æ€§å¤„ç† - æ·»åŠ å­—ç¬¦ä¸²trimæ–¹æ³•
 if (!String.prototype.trim) {
     String.prototype.trim = function() {
         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
     };
 }
 
-// ½«Ê±¼ä×Ö·û´®×ª»»ÎªÃëÊı
+// å°†æ—¶é—´å­—ç¬¦ä¸²è½¬æ¢ä¸ºç§’æ•°
 function parseTimeToSeconds(hours, minutes, seconds, milliseconds) {
     return parseInt(hours) * 3600 +
         parseInt(minutes) * 60 +
@@ -47,56 +47,56 @@ function parseTimeToSeconds(hours, minutes, seconds, milliseconds) {
         parseInt(milliseconds) / 1000;
 }
 
-// ´´½¨×ÖÄ»Í¼²ã
+// åˆ›å»ºå­—å¹•å›¾å±‚
 function createSubtitleLayers(comp, timeTeams) {
     var centerY = comp.height / 2;
     var currentY = centerY + CONFIG.SUBTITLE.LAYOUT.INITIAL_OFFSET;
 
-    // ¼ÆËã³õÊ¼YÎ»ÖÃ
+    // è®¡ç®—åˆå§‹Yä½ç½®
     for (var i = 0; i < timeTeams.length; i++) {
         var team = timeTeams[i];
         team.initialY = currentY;
 
-        // ¼ÆËãÏÂÒ»×éµÄÎ»ÖÃ
+        // è®¡ç®—ä¸‹ä¸€ç»„çš„ä½ç½®
         var change_y = CONFIG.SUBTITLE.LAYOUT.LINE_SPACING * team.lineNum + CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING;
         currentY += change_y;
     }
 
-    // ´´½¨ËùÓĞÎÄ±¾Í¼²ã
+    // åˆ›å»ºæ‰€æœ‰æ–‡æœ¬å›¾å±‚
     var textLayers = [];
     for (var i = 0; i < timeTeams.length; i++) {
         var team = timeTeams[i];
 
         for (var j = 0; j < team.texts.length; j++) {
             var textLayer = comp.layers.addText(team.texts[j]);
-            textLayer.name = "×ÖÄ»_" + i + "_" + j;
+            textLayer.name = "å­—å¹•_" + i + "_" + j;
             var sourceText = textLayer.property("Source Text");
             var textDoc = sourceText.value;
 
-            // Ó¦ÓÃÎÄ±¾ÑùÊ½ÅäÖÃ
+            // åº”ç”¨æ–‡æœ¬æ ·å¼é…ç½®
             textDoc.justification = CONFIG.SUBTITLE.TEXT_STYLE.JUSTIFICATION;
             textDoc.fontSize = CONFIG.SUBTITLE.TEXT_STYLE.FONT_SIZE;
             textDoc.strokeWidth = CONFIG.SUBTITLE.TEXT_STYLE.STROKE_WIDTH;
             textDoc.fillColor = hexToRgbNormalized(CONFIG.SUBTITLE.TEXT_STYLE.NORMAL_COLOR);
             sourceText.setValue(textDoc);
 
-            // ÉèÖÃ³õÊ¼Î»ÖÃ
+            // è®¾ç½®åˆå§‹ä½ç½®
             var textProp = textLayer.property("ADBE Transform Group").property("ADBE Position");
             var textPosition = textProp.value;
-            textPosition[0] = comp.width / 2; // Ë®Æ½¾ÓÖĞ
-            textPosition[1] = team.initialY + j * CONFIG.SUBTITLE.LAYOUT.LINE_SPACING; // ´¹Ö±Î»ÖÃ
+            textPosition[0] = comp.width / 2; // æ°´å¹³å±…ä¸­
+            textPosition[1] = team.initialY + j * CONFIG.SUBTITLE.LAYOUT.LINE_SPACING; // å‚ç›´ä½ç½®
             textProp.setValue(textPosition);
 
-            // ÉèÖÃ³õÊ¼Í¸Ã÷¶ÈÎª0
+            // è®¾ç½®åˆå§‹é€æ˜åº¦ä¸º0
             var opacityProp = textLayer.property("ADBE Transform Group").property("ADBE Opacity");
             opacityProp.setValue(0);
 
-            // ÉèÖÃ³õÊ¼Ëõ·Å
+            // è®¾ç½®åˆå§‹ç¼©æ”¾
             var scaleProp = textLayer.property("ADBE Transform Group").property("ADBE Scale");
             var scaleValue = (i === 0 && j === 0) ? [CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE, CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE] : [CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE, CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE];
             scaleProp.setValue(scaleValue);
 
-            // ´æ´¢Í¼²ãĞÅÏ¢
+            // å­˜å‚¨å›¾å±‚ä¿¡æ¯
             if (!textLayers[i]) textLayers[i] = [];
             textLayers[i].push({
                 layer: textLayer,
@@ -107,20 +107,20 @@ function createSubtitleLayers(comp, timeTeams) {
         }
     }
 
-    // ÉèÖÃ¶¯»­¹Ø¼üÖ¡
+    // è®¾ç½®åŠ¨ç”»å…³é”®å¸§
     setupAnimations(comp, timeTeams, textLayers);
 }
 
-// ÉèÖÃ¶¯»­¹Ø¼üÖ¡
+// è®¾ç½®åŠ¨ç”»å…³é”®å¸§
 function setupAnimations(comp, timeTeams, textLayers) {
     var animDuration = CONFIG.SUBTITLE.ANIMATION.DURATION;
 
-    // ÉèÖÃµ­Èë¶¯»­
+    // è®¾ç½®æ·¡å…¥åŠ¨ç”»
     for (var i = 0; i < textLayers.length; i++) {
         for (var j = 0; j < textLayers[i].length; j++) {
             var layerInfo = textLayers[i][j];
 
-            // µ­Èë¹Ø¼üÖ¡
+            // æ·¡å…¥å…³é”®å¸§
             layerInfo.opacityProp.setValueAtTime(0, 0);
             layerInfo.opacityProp.setValueAtTime(animDuration, 100);
         }
@@ -128,42 +128,42 @@ function setupAnimations(comp, timeTeams, textLayers) {
 
     var accumulatedOffset = 0;
 
-    // ÉèÖÃ¹ö¶¯¡¢Ëõ·ÅºÍÑÕÉ«¶¯»­
+    // è®¾ç½®æ»šåŠ¨ã€ç¼©æ”¾å’Œé¢œè‰²åŠ¨ç”»
     for (var i = 0; i < timeTeams.length; i++) {
         var team = timeTeams[i];
         var startTime = team.startTime;
         var change_y = CONFIG.SUBTITLE.LAYOUT.LINE_SPACING * team.lineNum + CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING;
 
-        // ÎªËùÓĞÍ¼²ãÉèÖÃÒÆ¶¯¶¯»­
+        // ä¸ºæ‰€æœ‰å›¾å±‚è®¾ç½®ç§»åŠ¨åŠ¨ç”»
         for (var k = 0; k < textLayers.length; k++) {
             for (var l = 0; l < textLayers[k].length; l++) {
                 var layerInfo = textLayers[k][l];
                 var positionProp = layerInfo.positionProp;
 
-                // »ñÈ¡µ±Ç°Î»ÖÃ
+                // è·å–å½“å‰ä½ç½®
                 var currentPosition = positionProp.value;
-                // ÉèÖÃÒÆ¶¯¹Ø¼üÖ¡
+                // è®¾ç½®ç§»åŠ¨å…³é”®å¸§
                 currentPosition[1] -= accumulatedOffset;
                 positionProp.setValueAtTime(startTime - animDuration/2, currentPosition);
-                currentPosition[1] -= change_y; // ÏòÉÏÒÆ¶¯
+                currentPosition[1] -= change_y; // å‘ä¸Šç§»åŠ¨
                 positionProp.setValueAtTime(startTime + animDuration/2, currentPosition);
             }
         }
         accumulatedOffset += change_y;
 
-        // ÉèÖÃËõ·ÅºÍÑÕÉ«¶¯»­
+        // è®¾ç½®ç¼©æ”¾å’Œé¢œè‰²åŠ¨ç”»
         if (i > 0) {
-            // ÉÏÒ»¸öÊ±¼ä´ÁµÄ¸è´Ê£ºËõ·Å ¸ßÁÁ -> Õı³££¬ÑÕÉ« ¸ßÁÁ -> ÆÕÍ¨
+            // ä¸Šä¸€ä¸ªæ—¶é—´æˆ³çš„æ­Œè¯ï¼šç¼©æ”¾ é«˜äº® -> æ­£å¸¸ï¼Œé¢œè‰² é«˜äº® -> æ™®é€š
             for (var l = 0; l < textLayers[i - 1].length; l++) {
                 var prevLayerInfo = textLayers[i - 1][l];
 
-                // Ëõ·Å¶¯»­
+                // ç¼©æ”¾åŠ¨ç”»
                 prevLayerInfo.scaleProp.setValueAtTime(startTime - animDuration/2,
                     [CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE, CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE]);
                 prevLayerInfo.scaleProp.setValueAtTime(startTime + animDuration/2,
                     [CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE, CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE]);
 
-                // ÑÕÉ«¶¯»­£º´Ó¸ßÁÁÉ«±ä»ØÆÕÍ¨°×É«
+                // é¢œè‰²åŠ¨ç”»ï¼šä»é«˜äº®è‰²å˜å›æ™®é€šç™½è‰²
                 changeTextColor(prevLayerInfo.layer, startTime - 0.1, startTime,
                     CONFIG.SUBTITLE.TEXT_STYLE.HIGHLIGHT_COLOR,
                     CONFIG.SUBTITLE.TEXT_STYLE.NORMAL_COLOR
@@ -171,17 +171,17 @@ function setupAnimations(comp, timeTeams, textLayers) {
             }
         }
 
-        // µ±Ç°Ê±¼ä´ÁµÄ¸è´Ê£ºËõ·Å Õı³£ -> ¸ßÁÁ£¬ÑÕÉ« ÆÕÍ¨ -> ¸ßÁÁ
+        // å½“å‰æ—¶é—´æˆ³çš„æ­Œè¯ï¼šç¼©æ”¾ æ­£å¸¸ -> é«˜äº®ï¼Œé¢œè‰² æ™®é€š -> é«˜äº®
         for (var l = 0; l < textLayers[i].length; l++) {
             var currLayerInfo = textLayers[i][l];
 
-            // Ëõ·Å¶¯»­
+            // ç¼©æ”¾åŠ¨ç”»
             currLayerInfo.scaleProp.setValueAtTime(startTime - animDuration/2,
                 [CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE, CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE]);
             currLayerInfo.scaleProp.setValueAtTime(startTime + animDuration/2,
                 [CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE, CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE]);
 
-            // ÑÕÉ«¶¯»­£º´Ó°×É«±äÎª¸ßÁÁÉ«
+            // é¢œè‰²åŠ¨ç”»ï¼šä»ç™½è‰²å˜ä¸ºé«˜äº®è‰²
             changeTextColor(currLayerInfo.layer, startTime - 0.1, startTime,
                 CONFIG.SUBTITLE.TEXT_STYLE.NORMAL_COLOR,
                 CONFIG.SUBTITLE.TEXT_STYLE.HIGHLIGHT_COLOR
@@ -189,7 +189,7 @@ function setupAnimations(comp, timeTeams, textLayers) {
         }
     }
 
-    // ÉèÖÃµ­³ö¶¯»­ (×îºóÒ»¸öÊ±¼ä´Á½áÊøºóÑÓ³Ùµ­³ö)
+    // è®¾ç½®æ·¡å‡ºåŠ¨ç”» (æœ€åä¸€ä¸ªæ—¶é—´æˆ³ç»“æŸåå»¶è¿Ÿæ·¡å‡º)
     var lastTeam = timeTeams[timeTeams.length - 1];
     var fadeOutStartTime = lastTeam.endTime + CONFIG.SUBTITLE.ANIMATION.FADE_OUT_DELAY;
 
@@ -197,49 +197,49 @@ function setupAnimations(comp, timeTeams, textLayers) {
         for (var j = 0; j < textLayers[i].length; j++) {
             var layerInfo = textLayers[i][j];
 
-            // µ­³ö¹Ø¼üÖ¡
+            // æ·¡å‡ºå…³é”®å¸§
             layerInfo.opacityProp.setValueAtTime(fadeOutStartTime, 100);
             layerInfo.opacityProp.setValueAtTime(fadeOutStartTime + animDuration, 0);
         }
     }
 }
 
-// ¸Ä±äÎÄ±¾ÑÕÉ«
+// æ”¹å˜æ–‡æœ¬é¢œè‰²
 function changeTextColor(textLayer, startTime, endTime, startColor, endColor) {
     var sourceText = textLayer.property("Source Text");
     
-    // ×ª»»16½øÖÆÑÕÉ«ÎªRGBÊı×é
+    // è½¬æ¢16è¿›åˆ¶é¢œè‰²ä¸ºRGBæ•°ç»„
     var startRgb = hexToRgbNormalized(startColor);
     var endRgb = hexToRgbNormalized(endColor);
 
-    // ÔÚ¿ªÊ¼Ê±¼äÉèÖÃÆğÊ¼ÑÕÉ«
+    // åœ¨å¼€å§‹æ—¶é—´è®¾ç½®èµ·å§‹é¢œè‰²
     var startTextDoc = sourceText.value;
     startTextDoc.fillColor = startRgb;
     sourceText.setValueAtTime(startTime, startTextDoc);
 
-    // ÔÚ½áÊøÊ±¼äÉèÖÃ½áÊøÑÕÉ«
+    // åœ¨ç»“æŸæ—¶é—´è®¾ç½®ç»“æŸé¢œè‰²
     var endTextDoc = sourceText.value;
     endTextDoc.fillColor = endRgb;
     sourceText.setValueAtTime(endTime, endTextDoc);
 }
 
-// LRC×ªTimeTeamsº¯Êı
+// LRCè½¬TimeTeamså‡½æ•°
 function lrcToTimeTeams(lrcContent) {
     var timeTeams = [];
     var timelist = [];
 
-    // ·Ö¸îLRCÄÚÈİÎªĞĞ
+    // åˆ†å‰²LRCå†…å®¹ä¸ºè¡Œ
     var lrcLines = lrcContent.split(/\r?\n/);
 
-    // ÕıÔò±í´ïÊ½Æ¥ÅäLRCÊ±¼ä±êÇ©ºÍ¸è´ÊÄÚÈİ
+    // æ­£åˆ™è¡¨è¾¾å¼åŒ¹é…LRCæ—¶é—´æ ‡ç­¾å’Œæ­Œè¯å†…å®¹
     var lrcRegex = /\[(\d+):(\d+)(?:\.|:)?(\d+)\](.*)/;
 
-    // ½âÎöÊ±¼ä²¢ÊÕ¼¯¸è´Ê
+    // è§£ææ—¶é—´å¹¶æ”¶é›†æ­Œè¯
     for (var i = 0; i < lrcLines.length; i++) {
         var line = lrcLines[i].trim();
         if (!line) continue;
 
-        // Æ¥ÅäÊ±¼ä±êÇ©
+        // åŒ¹é…æ—¶é—´æ ‡ç­¾
         var matches = line.match(lrcRegex);
         if (matches) {
             var minutes = matches[1];
@@ -247,34 +247,34 @@ function lrcToTimeTeams(lrcContent) {
             var milliseconds = matches[3];
             var text = matches[4].trim();
 
-            if (text) { // Ö»´¦ÀíÓĞ¸è´ÊÄÚÈİµÄĞĞ
-                // ´¦ÀíºÁÃëÎ»Êı£¨LRC¿ÉÄÜÊÇ2Î»»ò3Î»£©
+            if (text) { // åªå¤„ç†æœ‰æ­Œè¯å†…å®¹çš„è¡Œ
+                // å¤„ç†æ¯«ç§’ä½æ•°ï¼ˆLRCå¯èƒ½æ˜¯2ä½æˆ–3ä½ï¼‰
                 var msValue;
                 if (milliseconds.length === 2) {
-                    msValue = parseInt(milliseconds) * 10; // 2Î»°Ù·ÖÃë×ª3Î»ºÁÃë
+                    msValue = parseInt(milliseconds) * 10; // 2ä½ç™¾åˆ†ç§’è½¬3ä½æ¯«ç§’
                 } else if (milliseconds.length === 3) {
                     msValue = parseInt(milliseconds);
                 } else {
                     msValue = 0;
                 }
 
-                // ×ª»»Îª×ÜºÁÃëÊı
+                // è½¬æ¢ä¸ºæ€»æ¯«ç§’æ•°
                 var totalMilliseconds = (parseInt(minutes) * 60 + parseInt(seconds)) * 1000 + msValue;
                 
-                // Ìí¼Óµ½Ê±¼äÁĞ±í£¨È¥ÖØ£©
+                // æ·»åŠ åˆ°æ—¶é—´åˆ—è¡¨ï¼ˆå»é‡ï¼‰
                 if (timelist.indexOf(totalMilliseconds) === -1) {
                     timelist.push(totalMilliseconds);
                     
-                    // ´´½¨Ê±¼äÌõÄ¿
+                    // åˆ›å»ºæ—¶é—´æ¡ç›®
                     timeTeams.push({
-                        startTime: totalMilliseconds / 1000, // ×ª»»ÎªÃë
-                        endTime: 0, // ÉÔºó¼ÆËã
+                        startTime: totalMilliseconds / 1000, // è½¬æ¢ä¸ºç§’
+                        endTime: 0, // ç¨åè®¡ç®—
                         texts: [text],
                         lineNum: 1,
                         originalIndex: timeTeams.length
                     });
                 } else {
-                    // Èç¹ûÊ±¼äÒÑ´æÔÚ£¬ºÏ²¢ÎÄ±¾ÄÚÈİ
+                    // å¦‚æœæ—¶é—´å·²å­˜åœ¨ï¼Œåˆå¹¶æ–‡æœ¬å†…å®¹
                     var existingIndex = timelist.indexOf(totalMilliseconds);
                     var existingTeam = timeTeams[existingIndex];
                     if (existingTeam.texts.indexOf(text) === -1) {
@@ -286,7 +286,7 @@ function lrcToTimeTeams(lrcContent) {
         }
     }
 
-    // °´¿ªÊ¼Ê±¼äÅÅĞò
+    // æŒ‰å¼€å§‹æ—¶é—´æ’åº
     timeTeams.sort(function(a, b) {
         return a.startTime - b.startTime;
     });
@@ -296,21 +296,21 @@ function lrcToTimeTeams(lrcContent) {
 
     var timelen = timelist.length - 1;
 
-    // ¼ÆËã½áÊøÊ±¼ä
+    // è®¡ç®—ç»“æŸæ—¶é—´
     for (var i = 0; i < timeTeams.length; i++) {
-        var startTime = timeTeams[i].startTime * 1000; // ×ª»ØºÁÃëÓÃÓÚ¼ÆËã
+        var startTime = timeTeams[i].startTime * 1000; // è½¬å›æ¯«ç§’ç”¨äºè®¡ç®—
         var num = timelist.indexOf(startTime);
 
-        // ¼ÆËã½áÊøÊ±¼ä
+        // è®¡ç®—ç»“æŸæ—¶é—´
         var endTime;
         if (num < timelen) {
-            endTime = timelist[num + 1] / 1000; // ×ª»»ÎªÃë
+            endTime = timelist[num + 1] / 1000; // è½¬æ¢ä¸ºç§’
         } else {
-            endTime = (startTime + 7000) / 1000; // ×îºóÒ»¾äÏÔÊ¾7Ãë£¬×ª»»ÎªÃë
+            endTime = (startTime + 7000) / 1000; // æœ€åä¸€å¥æ˜¾ç¤º7ç§’ï¼Œè½¬æ¢ä¸ºç§’
         }
 
         timeTeams[i].endTime = endTime;
-        timeTeams[i].originalIndex = i; // ¸üĞÂÅÅĞòºóµÄË÷Òı
+        timeTeams[i].originalIndex = i; // æ›´æ–°æ’åºåçš„ç´¢å¼•
     }
 
     return timeTeams;

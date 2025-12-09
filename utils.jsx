@@ -1,8 +1,8 @@
-// utils.jsx - ¹¤¾ßº¯Êı
+ï»¿// utils.jsx - å·¥å…·å‡½æ•°
 #include "config.jsx"
 
 function jswt(jsstr) {
-    // ESTKÖĞÖ±½ÓÊ¹ÓÃ$.writeln£¬Ìí¼ÓÊ±¼ä´Á±ãÓÚµ÷ÊÔ
+    // ESTKä¸­ç›´æ¥ä½¿ç”¨$.writelnï¼Œæ·»åŠ æ—¶é—´æˆ³ä¾¿äºè°ƒè¯•
     var time = new Date().toLocaleTimeString();
     $.writeln("[" + time + "] " + jsstr);
 }
@@ -11,10 +11,10 @@ function getFilePathWithoutExtension(filePath) {
         return '';
     }
 
-    // ÌáÈ¡ÎÄ¼şÃû£¨²»º¬Â·¾¶£©
+    // æå–æ–‡ä»¶åï¼ˆä¸å«è·¯å¾„ï¼‰
     var fileName = filePath;
 
-    // È¥³ıÀ©Õ¹Ãû
+    // å»é™¤æ‰©å±•å
     var lastDot = fileName.lastIndexOf('.');
     if (lastDot !== -1) {
         return fileName.substring(0, lastDot);
@@ -27,22 +27,22 @@ function getFileNameWithoutExtension(filePath) {
         return '';
     }
 
-    // ÌáÈ¡ÎÄ¼şÃû£¨²»º¬Â·¾¶£©
+    // æå–æ–‡ä»¶åï¼ˆä¸å«è·¯å¾„ï¼‰
     var fileName = filePath;
 
-    // ´¦ÀíWindowsÂ·¾¶·Ö¸ô·û
+    // å¤„ç†Windowsè·¯å¾„åˆ†éš”ç¬¦
     var lastBackslash = fileName.lastIndexOf('\\');
     if (lastBackslash !== -1) {
         fileName = fileName.substring(lastBackslash + 1);
     }
 
-    // ´¦ÀíUnixÂ·¾¶·Ö¸ô·û
+    // å¤„ç†Unixè·¯å¾„åˆ†éš”ç¬¦
     var lastSlash = fileName.lastIndexOf('/');
     if (lastSlash !== -1) {
         fileName = fileName.substring(lastSlash + 1);
     }
 
-    // È¥³ıÀ©Õ¹Ãû
+    // å»é™¤æ‰©å±•å
     var lastDot = fileName.lastIndexOf('.');
     if (lastDot !== -1) {
         return fileName.substring(0, lastDot);
@@ -54,7 +54,7 @@ function getFileNameWithoutExtension(filePath) {
 function getAllFilePaths(folderPath) {
     var folder = new Folder(folderPath);
     if (!folder.exists) {
-        alert("ÎÄ¼ş¼Ğ²»´æÔÚ: " + folderPath);
+        alert("æ–‡ä»¶å¤¹ä¸å­˜åœ¨: " + folderPath);
         return [];
     }
 
@@ -73,7 +73,7 @@ function getAllFilePaths(folderPath) {
 function getOneFilePaths(folderPath) {
     var folder = new Folder(folderPath);
     if (!folder.exists) {
-        alert("ÎÄ¼ş¼Ğ²»´æÔÚ: " + folderPath);
+        alert("æ–‡ä»¶å¤¹ä¸å­˜åœ¨: " + folderPath);
         return [];
     }
 
@@ -101,50 +101,50 @@ function hasOpenProject() {
 }
 
 function copyFileWithRenameAndOverwrite(sourceFilePath) {
-    // 1. ÑéÖ¤ÊäÈë²ÎÊı
+    // 1. éªŒè¯è¾“å…¥å‚æ•°
     if (!sourceFilePath) {
-        $.writeln("´íÎó£ºÔ´ÎÄ¼şÂ·¾¶¡¢Ä¿±êÄ¿Â¼»òĞÂÎÄ¼şÃû²»ÄÜÎª¿Õ£¡");
+        $.writeln("é”™è¯¯ï¼šæºæ–‡ä»¶è·¯å¾„ã€ç›®æ ‡ç›®å½•æˆ–æ–°æ–‡ä»¶åä¸èƒ½ä¸ºç©ºï¼");
         return false;
     }
 
-    // 2. ´´½¨Ô´ÎÄ¼şºÍÄ¿±êÄ¿Â¼¶ÔÏó
+    // 2. åˆ›å»ºæºæ–‡ä»¶å’Œç›®æ ‡ç›®å½•å¯¹è±¡
     var sourceFile = new File(sourceFilePath);
     var targetDir = new Folder("./cache");
     
-    // 4. ¼ì²éÄ¿±êÄ¿Â¼ÊÇ·ñ´æÔÚ£¬²»´æÔÚÔò´´½¨
+    // 4. æ£€æŸ¥ç›®æ ‡ç›®å½•æ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨åˆ™åˆ›å»º
     if (!targetDir.exists) {
-        $.writeln("Ä¿±êÄ¿Â¼²»´æÔÚ£¬³¢ÊÔ´´½¨...");
-        var dirCreated = targetDir.create(); // µİ¹é´´½¨¶à¼¶Ä¿Â¼
+        $.writeln("ç›®æ ‡ç›®å½•ä¸å­˜åœ¨ï¼Œå°è¯•åˆ›å»º...");
+        var dirCreated = targetDir.create(); // é€’å½’åˆ›å»ºå¤šçº§ç›®å½•
         if (!dirCreated) {
-            $.writeln("´íÎó£ºÎŞ·¨´´½¨Ä¿±êÄ¿Â¼ - " + targetDir.fsName);
+            $.writeln("é”™è¯¯ï¼šæ— æ³•åˆ›å»ºç›®æ ‡ç›®å½• - " + targetDir.fsName);
             return false;
         }
-        $.writeln("Ä¿±êÄ¿Â¼´´½¨³É¹¦£º" + targetDir.fsName);
+        $.writeln("ç›®æ ‡ç›®å½•åˆ›å»ºæˆåŠŸï¼š" + targetDir.fsName);
     }
 
     var targetFile = new File("./cache/temp.aep");
 
-    // 6. ÈôÄ¿±êÎÄ¼şÒÑ´æÔÚ£¬ÏÈÉ¾³ı£¨ÊµÏÖ¸²¸Ç£©
+    // 6. è‹¥ç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨ï¼Œå…ˆåˆ é™¤ï¼ˆå®ç°è¦†ç›–ï¼‰
     if (targetFile.exists) {
-        $.writeln("Ä¿±êÎÄ¼şÒÑ´æÔÚ£¬×¼±¸¸²¸Ç - " + targetFile.fsName);
+        $.writeln("ç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨ï¼Œå‡†å¤‡è¦†ç›– - " + targetFile.fsName);
         var deleteSuccess = targetFile.remove();
         if (!deleteSuccess) {
-            $.writeln("´íÎó£ºÎŞ·¨É¾³ıÒÑ´æÔÚµÄÄ¿±êÎÄ¼ş£¨¿ÉÄÜ±»Õ¼ÓÃ£© - " + targetFile.fsName);
+            $.writeln("é”™è¯¯ï¼šæ— æ³•åˆ é™¤å·²å­˜åœ¨çš„ç›®æ ‡æ–‡ä»¶ï¼ˆå¯èƒ½è¢«å ç”¨ï¼‰ - " + targetFile.fsName);
             return false;
         }
     }
 
-    // 7. ¸´ÖÆÎÄ¼ş
+    // 7. å¤åˆ¶æ–‡ä»¶
     try {
         var copySuccess = sourceFile.copy(targetFile);
         if (copySuccess) {
-            $.writeln("¸´ÖÆÄ£°åÎÄ¼şµ½£º" + targetFile.fsName);
+            $.writeln("å¤åˆ¶æ¨¡æ¿æ–‡ä»¶åˆ°ï¼š" + targetFile.fsName);
             return true;
         } else {
-            throw new Error("¸´ÖÆ²Ù×÷·µ»ØÊ§°Ü×´Ì¬");
+            throw new Error("å¤åˆ¶æ“ä½œè¿”å›å¤±è´¥çŠ¶æ€");
         }
     } catch (e) {
-        $.writeln("´íÎó£ºÎÄ¼ş¸´ÖÆÊ§°Ü - " + e.message);
+        $.writeln("é”™è¯¯ï¼šæ–‡ä»¶å¤åˆ¶å¤±è´¥ - " + e.message);
         return false;
     }
 }
@@ -157,8 +157,9 @@ function getAllSubdirectories(parentDir) {
     var items = folder.getFiles();
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
+        
         if (item instanceof Folder && item.name !== "." && item.name !== "..") {
-            // Í³Ò»Ê¹ÓÃfsName»ñÈ¡±ê×¼»¯Â·¾¶
+            // ç»Ÿä¸€ä½¿ç”¨fsNameè·å–æ ‡å‡†åŒ–è·¯å¾„
             subdirs.push(item.fsName);
         }
     }
@@ -182,15 +183,15 @@ function configureRender(comp, outputPath) {
     var rq = app.project.renderQueue;
     var rqItem = rq.items.add(comp);
 
-    // ÉèÖÃÊä³öÄ£¿é
+    // è®¾ç½®è¾“å‡ºæ¨¡å—
     var om = rqItem.outputModule(1);
     if (!om) om = rqItem.outputModules.add();
 
-    // ÅäÖÃÊä³ö¸ñÊ½ (H.264ÎªÀı)  H.264 - Æ¥ÅääÖÈ¾ÉèÖÃ - 15 Mbps
+    // é…ç½®è¾“å‡ºæ ¼å¼ (H.264ä¸ºä¾‹)  H.264 - åŒ¹é…æ¸²æŸ“è®¾ç½® - 15 Mbps
     var template = "MP4";
     om.applyTemplate(template);
-
-    // ÉèÖÃÊä³öÂ·¾¶
+    jswt(outputPath)
+    // è®¾ç½®è¾“å‡ºè·¯å¾„
     var outputFile = new File(outputPath);
     om.file = outputFile;
 

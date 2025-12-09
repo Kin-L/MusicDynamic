@@ -1,542 +1,541 @@
-// gui.jsx - ≈‰÷√GUIœµÕ≥
+// gui.jsx - ÈÖçÁΩÆGUIÁ≥ªÁªü
 #include "config.jsx"
 #include "utils.jsx"
 #include "subtitle.jsx"
 
-// Çs∏ƒ?…´—È÷§∫Ø ˝
-
-{
-    // ¥¥Ω®÷˜¥∞Ö∑
-    var dialog = new Window("dialog", " ”?÷∆◊˜≈‰¡ZœµÕ≥");
-    dialog.orientation = "column";
-    dialog.alignChildren = ["left", "top"];
-    dialog.preferredSize = [500, 500];
-
-    // ¥¥Ω®—°œÓø®√Ê∞Â
-    var tabPanel = dialog.add("tabbedpanel");
-    tabPanel.preferredSize = [480, 400];
-
-    // ==================== ª˘±æ≈‰÷√—°œÓ«‰ ====================
-    var basicTab = tabPanel.add("tab", undefined, "ª˘±æ≈‰÷√");
-    basicTab.orientation = "column";
-    basicTab.alignChildren = ["left", "top"];
-
-    // Œƒº˛º–≈‰¡Z«¯”Ú
-    var folderGroup = basicTab.add("group");
-    folderGroup.orientation = "column";
-    folderGroup.alignChildren = ["left", "center"];
-    folderGroup.preferredSize = [560, 80];
-
-    var folderLabel = folderGroup.add("statictext", undefined, "Àÿ≤ƒŒƒº˛º–¬∑è‹:");
-    folderLabel.preferredSize = [560, 20];
-
-    var folderPathGroup = folderGroup.add("group");
-    folderPathGroup.preferredSize = [560, 30];
-
-    var folderText = folderPathGroup.add("edittext", undefined, CONFIG.FOLDER_PATH);
-    folderText.preferredSize = [480, 25];
-
-    var folderButton = folderPathGroup.add("button", undefined, "‰Øﬁô");
-    folderButton.preferredSize = [60, 25];
-
-    // AEPƒ£∞Â≈‰÷√«¯”Ú
-    var aepGroup = basicTab.add("group");
-    aepGroup.orientation = "column";
-    aepGroup.alignChildren = ["left", "center"];
-    aepGroup.preferredSize = [560, 80];
-
-    var aepLabel = aepGroup.add("statictext", undefined, "AEPƒ£∞ÂŒƒº˛€Tè‹:");
-    aepLabel.preferredSize = [560, 20];
-
-    var aepPathGroup = aepGroup.add("group");
-    aepPathGroup.preferredSize = [560, 30];
-
-    var aepText = aepPathGroup.add("edittext", undefined, CONFIG.AEP_PATH);
-    aepText.preferredSize = [480, 25];
-
-    var aepButton = aepPathGroup.add("button", undefined, "‰Øﬁô");
-    aepButton.preferredSize = [60, 25];
-
-    // ª˘±æ–≈œ¢≈‰÷√«¯”Ú
-    var infoGroup = basicTab.add("group");
-    infoGroup.orientation = "row";
-    infoGroup.alignChildren = ["left", "center"];
-    infoGroup.preferredSize = [560, 60];
-
-    var artistGroup = infoGroup.add("group");
-    artistGroup.orientation = "column";
-    artistGroup.preferredSize = [270, 60];
-
-    var artistLabel = artistGroup.add("statictext", undefined, "“’ ıº“√˚∂ç:");
-    artistLabel.preferredSize = [270, 20];
-    var artistText = artistGroup.add("edittext", undefined, CONFIG.ARTIST_NAME);
-    artistText.preferredSize = [270, 25];
-
-    var versionGroup = infoGroup.add("group");
-    versionGroup.orientation = "column";
-    versionGroup.preferredSize = [270, 60];
-
-    var versionLabel = versionGroup.add("statictext", undefined, "ΩÀ±Í?√˚∂ç:");
-    versionLabel.preferredSize = [270, 20];
-    var versionText = versionGroup.add("edittext", undefined, CONFIG.VERSION_NAME);
-    versionText.preferredSize = [270, 25];
-
-    // ±a¬º¥¥Ω®«¯à–
-    var createGroup = basicTab.add("group");
-    createGroup.orientation = "column";
-    createGroup.alignChildren = ["left", "center"];
-    createGroup.preferredSize = [560, 80];
-
-    var createLabel = createGroup.add("statictext", undefined, "‘⁄Àÿ≤ƒŒƒº˛º–€Tæ∂¥¥Ω®ƒø¬ºΩ·ñ®:");
-    createLabel.preferredSize = [560, 20];
-
-    var createInputGroup = createGroup.add("group");
-    createInputGroup.preferredSize = [560, 30];
-
-    var numLabel = createInputGroup.add("statictext", undefined, "Àÿ≤ƒ◊È ˝‚Y:");
-    numLabel.preferredSize = [80, 25];
-
-    var numText = createInputGroup.add("edittext", undefined, "0");
-    numText.preferredSize = [80, 25];
-
-    var createButton = createInputGroup.add("button", undefined, "¥¥Ω®±aè∑");
-    createButton.preferredSize = [100, 25];
-
-    // ==================== ◊÷ƒª≈‰÷√—°œÓ«‰ ====================
-    var subtitleTab = tabPanel.add("tab", undefined, "◊÷ƒª≈‰÷√");
-    subtitleTab.orientation = "column";
-    subtitleTab.alignChildren = ["left", "top"];
-
-    // ∫œ≥……Ë÷√
-    var compGroup = subtitleTab.add("group");
-    compGroup.orientation = "column";
-    compGroup.alignChildren = ["left", "center"];
-    compGroup.preferredSize = [560, 120];
-
-    var compLabel = compGroup.add("statictext", undefined, "∫œ≥……Ë÷√:");
-    compLabel.preferredSize = [560, 20];
-    compLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
-
-    var compRow1 = compGroup.add("group");
-    compRow1.preferredSize = [560, 30];
-
-    var widthLabel = compRow1.add("statictext", undefined, "øÌ∂»:");
-    widthLabel.preferredSize = [60, 25];
-    var widthText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.WIDTH.toString());
-    widthText.preferredSize = [80, 25];
-
-    var heightLabel = compRow1.add("statictext", undefined, "∏ﬂ∂»:");
-    heightLabel.preferredSize = [60, 25];
-    var heightText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.HEIGHT.toString());
-    heightText.preferredSize = [80, 25];
-
-    var fpsLabel = compRow1.add("statictext", undefined, "÷°¬ :");
-    fpsLabel.preferredSize = [60, 25];
-    var fpsText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.FPS.toString());
-    fpsText.preferredSize = [80, 25];
-
-    var compRow2 = compGroup.add("group");
-    compRow2.preferredSize = [560, 30];
-
-    var posXLabel = compRow2.add("statictext", undefined, "Œª÷√ X:");
-    posXLabel.preferredSize = [60, 25];
-    var posXText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.Position[0].toString());
-    posXText.preferredSize = [80, 25];
-
-    var posYLabel = compRow2.add("statictext", undefined, "Œª÷√ Y:");
-    posYLabel.preferredSize = [60, 25];
-    var posYText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.Position[1].toString());
-    posYText.preferredSize = [80, 25];
-
-    var nameLabel = compRow2.add("statictext", undefined, "∫œ≥…√˚≥∆:");
-    nameLabel.preferredSize = [80, 25];
-    var nameText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.NAME);
-    nameText.preferredSize = [120, 25];
-
-    // Œƒ±æ—˘ Ω…Ë÷√
-    var textStyleGroup = subtitleTab.add("group");
-    textStyleGroup.orientation = "column";
-    textStyleGroup.alignChildren = ["left", "center"];
-    textStyleGroup.preferredSize = [560, 120];
-
-    var textStyleLabel = textStyleGroup.add("statictext", undefined, "Œƒ±æ—˘ Ω:");
-    textStyleLabel.preferredSize = [560, 20];
-    textStyleLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
-
-    var textStyleRow1 = textStyleGroup.add("group");
-    textStyleRow1.preferredSize = [560, 30];
-
-    var fontSizeLabel = textStyleRow1.add("statictext", undefined, "◊÷ÃÂ¥Û–°:");
-    fontSizeLabel.preferredSize = [80, 25];
-    var fontSizeText = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.FONT_SIZE.toString());
-    fontSizeText.preferredSize = [80, 25];
-
-    var strokeLabel = textStyleRow1.add("statictext", undefined, "√Ë±ﬂøÌ∂»:");
-    strokeLabel.preferredSize = [80, 25];
-    var strokeText = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.STROKE_WIDTH.toString());
-    strokeText.preferredSize = [80, 25];
-
-    var textStyleRow2 = textStyleGroup.add("group");
-    textStyleRow2.preferredSize = [560, 30];
-
-    var normalColorLabel = textStyleRow2.add("statictext", undefined, "ïòÕ®?…´(16Ω¯÷∆RGBÇû):");
-    normalColorLabel.preferredSize = [80, 25];
-    var normalColorText = textStyleRow2.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.NORMAL_COLOR);
-    normalColorText.preferredSize = [120, 25];
-
-    var highlightColorLabel = textStyleRow2.add("statictext", undefined, "∏ﬂ¡¡—’…´(16Ω¯÷∆RGBÇû):");
-    highlightColorLabel.preferredSize = [80, 25];
-    var highlightColorText = textStyleRow2.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.HIGHLIGHT_COLOR);
-    highlightColorText.preferredSize = [120, 25];
-
-    // ≤ºæ÷…Ë÷√
-    var layoutGroup = subtitleTab.add("group");
-    layoutGroup.orientation = "column";
-    layoutGroup.alignChildren = ["left", "center"];
-    layoutGroup.preferredSize = [560, 100];
-
-    var layoutLabel = layoutGroup.add("statictext", undefined, "≤ºæ÷…Ë÷√:");
-    layoutLabel.preferredSize = [560, 20];
-    layoutLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
-
-    var layoutRow1 = layoutGroup.add("group");
-    layoutRow1.preferredSize = [560, 30];
-
-    var lineSpacingLabel = layoutRow1.add("statictext", undefined, "––º‰€T:");
-    lineSpacingLabel.preferredSize = [80, 25];
-    var lineSpacingText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.LINE_SPACING.toString());
-    lineSpacingText.preferredSize = [80, 25];
-
-    var paraSpacingLabel = layoutRow1.add("statictext", undefined, "∂Œº‰€T:");
-    paraSpacingLabel.preferredSize = [80, 25];
-    var paraSpacingText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING.toString());
-    paraSpacingText.preferredSize = [80, 25];
-
-    var initialOffsetLabel = layoutRow1.add("statictext", undefined, "≥ıè„∆´∂ç:");
-    initialOffsetLabel.preferredSize = [80, 25];
-    var initialOffsetText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.INITIAL_OFFSET.toString());
-    initialOffsetText.preferredSize = [80, 25];
-
-    // ∂Øª≠…Ë÷√
-    var animationGroup = subtitleTab.add("group");
-    animationGroup.orientation = "column";
-    animationGroup.alignChildren = ["left", "center"];
-    animationGroup.preferredSize = [560, 100];
-
-    var animationLabel = animationGroup.add("statictext", undefined, "∂Øª≠…Ë÷√:");
-    animationLabel.preferredSize = [560, 20];
-    animationLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
-
-    var animationRow1 = animationGroup.add("group");
-    animationRow1.preferredSize = [560, 30];
-
-    var durationLabel = animationRow1.add("statictext", undefined, "∂Øª≠ ±≥§:");
-    durationLabel.preferredSize = [80, 25];
-    var durationText = animationRow1.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.DURATION.toString());
-    durationText.preferredSize = [80, 25];
-    durationText.helpTip = "∂ç";
-
-    var fadeDelayLabel = animationRow1.add("statictext", undefined, "µ≠≥ˆ—”≥Ÿ:");
-    fadeDelayLabel.preferredSize = [80, 25];
-    var fadeDelayText = animationRow1.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.FADE_OUT_DELAY.toString());
-    fadeDelayText.preferredSize = [80, 25];
-    fadeDelayText.helpTip = "∂ç";
-
-    var animationRow2 = animationGroup.add("group");
-    animationRow2.preferredSize = [560, 30];
-
-    var normalScaleLabel = animationRow2.add("statictext", undefined, "’˝≥£Àı∑≈:");
-    normalScaleLabel.preferredSize = [80, 25];
-    var normalScaleText = animationRow2.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE.toString());
-    normalScaleText.preferredSize = [80, 25];
-    normalScaleText.helpTip = "∞Ÿ∑÷ö–";
-
-    var highlightScaleLabel = animationRow2.add("statictext", undefined, "∏ﬂ¡¡Àı∑≈:");
-    highlightScaleLabel.preferredSize = [80, 25];
-    var highlightScaleText = animationRow2.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE.toString());
-    highlightScaleText.preferredSize = [80, 25];
-    highlightScaleText.helpTip = "∞Ÿ∑÷ö–";
-
-    // ==================== ∞¥≈•«¯”Ú ====================
-    var buttonGroup = dialog.add("group");
-    buttonGroup.orientation = "row";
-    buttonGroup.alignChildren = ["center", "center"];
-    buttonGroup.preferredSize = [580, 40];
-
-    var saveButton = buttonGroup.add("button", undefined, "±£¥Ê≈‰÷√");
-    saveButton.preferredSize = [100, 30];
-
-    var runButton = buttonGroup.add("button", undefined, "‘ÀﬁÉ÷˜≥Ã–Ú");
-    runButton.preferredSize = [100, 30];
-
-    var cancelButton = buttonGroup.add("button", undefined, "»°œ˚");
-    cancelButton.preferredSize = [100, 30];
-
-    // ====================  ¬º˛¥¶¿Ì ====================
-    // ‰Ø¬ıŒƒº˛º–
-    folderButton.onClick = function() {
-        var selectedFolder = Folder.selectDialog("—°‘ÒÀÿ≤ƒŒƒº˛äB");
-        if (selectedFolder) {
-            folderText.text = selectedFolder.fsName;
-        }
-    };
-
-    // ‰Ø¬ıAEPŒƒº˛
-    aepButton.onClick = function() {
-        var selectedFile = File.openDialog("—°‘ÒAEPƒ£∞ÂŒƒº˛", "*.aep");
-        if (selectedFile) {
-            aepText.text = selectedFile.fsName;
-        }
-    };
-
-    // ¥¥Ω®±a¬ºΩ·ñ®
-    createButton.onClick = function() {
-        var num;
-        try {
-            num = parseInt(numText.text);
-            if (isNaN(num) || num < 0) {
-                alert("«Î ‰»Î”––ßµƒ ˝◊÷");
-                return;
-            }
-        } catch (e) {
-            alert("«Î ‰»Î”––ßµƒ ˝◊÷");
-            return;
-        }
-
-        var baseFolderPath = folderText.text;
-        if (!baseFolderPath) {
-            alert("«Îœ»…Ë÷√Àÿ≤ƒŒƒº˛º–¬∑è‹");
-            return;
-        }
-
-        createDirectoryStructure(baseFolderPath, num);
-    };
-
-    // ±£¥Ê≈‰÷√
-    saveButton.onClick = function() {
-        if (saveConfig()) {
-            alert("≈‰÷√±£¥Ê≥…π¶£ﬂ");
-        }
-    };
-
-    // ‘ÀﬁÉ÷˜≥Ã–Ú
-    runButton.onClick = function() {
-        if (saveConfig()) {
-            // ‘ÀﬁÉ÷˜≥Ã–Ú
-            $.evalFile(File($.fileName).path + "/main.jsx");
-
-        }
-    };
-
-    // »°œ˚
-    cancelButton.onClick = function() {
-        dialog.close();
-    };
-
-    // ==================== π¶ƒ‹∫Ø ˝ ====================
-
-    // ¥¥Ω®±a¬ºΩ·ππ∫Øîº
-    function createDirectoryStructure(baseFolderPath, num) {
-        try {
-            // ¥¥Ω®÷˜ƒø¬ºΩ·ñ®
-            var mainFolders = ["“Ù¿÷", "±≥æ∞Õº≤„", "∑‚√ÊÕº≤„", "µ˙∆¨Õº≤„", "∏Ë¥ "];
-
-            for (var i = 0; i < mainFolders.length; i++) {
-                var folderPath = new Folder(baseFolderPath + "/" + mainFolders[i]);
-                if (!folderPath.exists) {
-                    folderPath.create();
-                }
-            }
-
-            // ¥¥Ω®Àÿ≤ƒ¬Ã
-            for (var j = 1; j <= num; j++) {
-                var materialGroup = "Àÿ≤ƒ¬Ã" + j;
-                var materialPath = new Folder(baseFolderPath + "/" + materialGroup);
-                if (!materialPath.exists) {
-                    materialPath.create();
-                }
-
-                // ‘⁄√øÿØÀÿ≤ƒ◊Èœ¬¥¥Ω®◊”ƒøè∑
-                for (var k = 0; k < mainFolders.length; k++) {
-                    var subFolderPath = new Folder(materialPath.fsName + "/" + mainFolders[k]);
-                    if (!subFolderPath.exists) {
-                        subFolderPath.create();
-                    }
-                }
-            }
-
-            alert("±a¬ºΩ·ππ¥¥Ω®≥…π¶£°\nà] " + baseFolderPath + " ÿØ¥¥Ω®“⁄ " + num + " ÿØÀÿ≤ƒ¬Ã");
-
-        } catch (e) {
-            alert("¥¥Ω®±a¬º ±≥ˆœ÷¥Ìﬁô£ﬂ" + e.toString());
-        }
-    }
-
-    // —È÷§—’…´∏Ò Ω
-    function validateColor(colorText) {
-        return /^#[0-9A-F]{6}$/i.test(colorText);
-    }
-
-    // ±£¥Ê≈‰÷√µΩconfig.jsx
-    function saveConfig() {
-        // —È÷§—’…´∏Ò Ω
-        if (!validateColor(normalColorText.text)) {
-            alert("¥Ìﬁô£∫∆’Õ®?…´∏Ò Ω≤ªù¸»∑£°\n«Î π”√RGB∏Ò Ω£¨èﬂ£∫#FFFFFF");
-            normalColorText.active = true;
-            return false;
-        }
-
-        if (!validateColor(highlightColorText.text)) {
-            alert("¥Ìﬁô£∫∏ﬂ“⁄—’…´∏Ò Ω≤ªù¸»∑£°\n«Î π”√RGB∏Ò Ω£¨èﬂ£∫#FFCC33");
-            highlightColorText.active = true;
-            return false;
-        }
-
-        // —È÷§ ˝◊÷◊÷ûW
-        var numberFields = [{
-                field: widthText,
-                name: "∫œ≥…øÌ∂»"
-            },
-            {
-                field: heightText,
-                name: "∫œ≥…∏ﬂ∂»"
-            },
-            {
-                field: fpsText,
-                name: "÷°¬ "
-            },
-            {
-                field: posXText,
-                name: "Œª÷√X"
-            },
-            {
-                field: posYText,
-                name: "Œª÷√Y"
-            },
-            {
-                field: fontSizeText,
-                name: "◊÷ÃÂ¥Û–°"
-            },
-            {
-                field: strokeText,
-                name: "√Ë±ﬂøÌ∂»"
-            },
-            {
-                field: lineSpacingText,
-                name: "––º‰€T"
-            },
-            {
-                field: paraSpacingText,
-                name: "∂Œº‰€T"
-            },
-            {
-                field: initialOffsetText,
-                name: "≥ıè„∆´∂ç"
-            },
-            {
-                field: durationText,
-                name: "∂Øª≠ ±≥§"
-            },
-            {
-                field: fadeDelayText,
-                name: "µ≠≥ˆ—”≥Ÿ"
-            },
-            {
-                field: normalScaleText,
-                name: "’˝≥£Àı∑≈"
-            },
-            {
-                field: highlightScaleText,
-                name: "∏ﬂ¡¡Àı∑≈"
-            }
-        ];
-
-        for (var i = 0; i < numberFields.length; i++) {
-            var field = numberFields[i];
-            var value = parseFloat(field.field.text);
-            if (isNaN(value)) {
-                alert("¥Ìﬁô£ﬂ" + field.name + "±ÿ–Îïp ˝◊÷£ﬂ");
-                field.field.active = true;
-                return false;
-            }
-        }
-
-        var configContent = generateConfigContent();
-        var configFile = new File(File($.fileName).path + "/config.jsx");
-
-        try {
-            configFile.open("w");
-            configFile.write(configContent);
-            configFile.close();
-
-            // ÷ÿ–¬º”‘ÿ≈‰÷√
-            $.evalFile(configFile);
-            return true;
-
-        } catch (e) {
-            alert("±£¥Ê≈‰÷√ ±≥ˆ¥Ì£∫" + e.toString());
-            return false;
-        }
-    }
-
-    // …˙≥…≈‰÷√Œƒº˛ƒ⁄è˚£®”≈ªØ∞Ê£©
-    function generateConfigContent() {
-        var content = '// config.jsx - ≈‰÷√–≈œ¢Ω≈±æ\n\n';
-        content += '// ==================== ≈‰÷√«¯”Ú ====================\n\n';
-        content += '// Àÿ≤ƒŒƒº˛º–¬∑æ∂£¨±ÿÃÓ\n';
-        content += 'var CONFIG = {\n';
-        content += '    FOLDER_PATH: "' + folderText.text + '",\n';
-        content += '    \n';
-        content += '    // aepƒ£∞ÂŒƒº˛€Tæ∂£¨±ÿÃÓ\n';
-        content += '    AEP_PATH: "' + aepText.text + '",\n';
-        content += '    \n';
-        content += '    // “’ ıº“√˚≥∆£¨âv–¥∫Û∏≤∏«WAV “Ù¿÷Œƒº˛√˚µƒ“’ ıº“£¨Ö∑≤ªÃÓ\n';
-        content += '    ARTIST_NAME: "' + artistText.text + '",\n';
-        content += '    \n';
-        content += '    // ΩÀ±Í?√˚≥∆£¨Ö∑≤ªÃÓ\n';
-        content += '    VERSION_NAME: "' + versionText.text + '",\n';
-        content += '    \n';
-        content += '    // ==================== ◊÷ƒª—˘ Ω≈‰÷√«¯”Ú ====================\n';
-        content += '    SUBTITLE: {\n';
-        content += '        // ∫œ≥……Ë÷√\n';
-        content += '        COMPOSITION: {\n';
-        content += '            WIDTH: ' + parseInt(widthText.text) + ',\n';
-        content += '            HEIGHT: ' + parseInt(heightText.text) + ',\n';
-        content += '            Position: [' + parseFloat(posXText.text) + ', ' + parseFloat(posYText.text) + '],\n';
-        content += '            FPS: ' + parseInt(fpsText.text) + ',\n';
-        content += '            NAME: "' + nameText.text + '"\n';
-        content += '        },\n';
-        content += '        \n';
-        content += '        // Œƒ±æ—˘ Ω\n';
-        content += '        TEXT_STYLE: {\n';
-        content += '            FONT_SIZE: ' + parseFloat(fontSizeText.text) + ',\n';
-        content += '            STROKE_WIDTH: ' + parseFloat(strokeText.text) + ',\n';
-        content += '            NORMAL_COLOR: "' + normalColorText.text + '", // ∞◊…´\n';
-        content += '            HIGHLIGHT_COLOR: "' + highlightColorText.text + '", // Ω…´\n';
-        content += '            JUSTIFICATION: ParagraphJustification.CENTER_JUSTIFY\n';
-        content += '        },\n';
-        content += '        \n';
-        content += '        // ≤ºæ÷…Ë÷√\n';
-        content += '        LAYOUT: {\n';
-        content += '            LINE_SPACING: ' + parseFloat(lineSpacingText.text) + ', // ––º‰æ‡\n';
-        content += '            PARAGRAPH_SPACING: ' + parseFloat(paraSpacingText.text) + ', // ∂Œº‰æ‡\n';
-        content += '            INITIAL_OFFSET: ' + parseFloat(initialOffsetText.text) + ' // ≥ıè„∆´“∆\n';
-        content += '        },\n';
-        content += '        \n';
-        content += '        // ∂Øª≠…Ë÷√\n';
-        content += '        ANIMATION: {\n';
-        content += '            DURATION: ' + parseFloat(durationText.text) + ', // ∂Øª≠≥÷–¯ ±º‰£®¡ï£©\n';
-        content += '            HIGHLIGHT_SCALE: ' + parseFloat(highlightScaleText.text) + ', // «øµ˜Àı∑≈∞Ÿ∑÷±»\n';
-        content += '            NORMAL_SCALE: ' + parseFloat(normalScaleText.text) + ', // ’˝≥£Àı∑≈∞Ÿ∑÷±»\n';
-        content += '            FADE_OUT_DELAY: ' + parseFloat(fadeDelayText.text) + ' // µ≠≥ˆ—”≥Ÿ£®¡ï£©\n';
-        content += '        }\n';
-        content += '    }\n';
-        content += '};\n\n';
-        content += '// ==================== ≈‰÷√«¯”ÚΩ· ¯ ====================';
-
-        return content;
-    }
-
-    // œ‘ æ∂‘ª∞óU
-    dialog.show();
+// ‰øÆÊîπÈ¢úËâ≤È™åËØÅÂáΩÊï∞
+
+
+// ÂàõÂª∫‰∏ªÁ™óÂè£
+var dialog = new Window("dialog", "ËßÜÈ¢ëÂà∂‰ΩúÈÖçÁΩÆÁ≥ªÁªü");
+dialog.orientation = "column";
+dialog.alignChildren = ["left", "top"];
+dialog.preferredSize = [500, 500];
+
+// ÂàõÂª∫ÈÄâÈ°πÂç°Èù¢Êùø
+var tabPanel = dialog.add("tabbedpanel");
+tabPanel.preferredSize = [480, 400];
+
+// ==================== Âü∫Êú¨ÈÖçÁΩÆÈÄâÈ°πÂç° ====================
+var basicTab = tabPanel.add("tab", undefined, "Âü∫Êú¨ÈÖçÁΩÆ");
+basicTab.orientation = "column";
+basicTab.alignChildren = ["left", "top"];
+
+// Êñá‰ª∂Â§πÈÖçÁΩÆÂå∫Âüü
+var folderGroup = basicTab.add("group");
+folderGroup.orientation = "column";
+folderGroup.alignChildren = ["left", "center"];
+folderGroup.preferredSize = [560, 80];
+
+var folderLabel = folderGroup.add("statictext", undefined, "Á¥†ÊùêÊñá‰ª∂Â§πË∑ØÂæÑ:");
+folderLabel.preferredSize = [560, 20];
+
+var folderPathGroup = folderGroup.add("group");
+folderPathGroup.preferredSize = [560, 30];
+
+var folderText = folderPathGroup.add("edittext", undefined, CONFIG.FOLDER_PATH);
+folderText.preferredSize = [480, 25];
+
+var folderButton = folderPathGroup.add("button", undefined, "ÊµèËßà");
+folderButton.preferredSize = [60, 25];
+
+// AEPÊ®°ÊùøÈÖçÁΩÆÂå∫Âüü
+var aepGroup = basicTab.add("group");
+aepGroup.orientation = "column";
+aepGroup.alignChildren = ["left", "center"];
+aepGroup.preferredSize = [560, 80];
+
+var aepLabel = aepGroup.add("statictext", undefined, "AEPÊ®°ÊùøÊñá‰ª∂Ë∑ØÂæÑ:");
+aepLabel.preferredSize = [560, 20];
+
+var aepPathGroup = aepGroup.add("group");
+aepPathGroup.preferredSize = [560, 30];
+
+var aepText = aepPathGroup.add("edittext", undefined, CONFIG.AEP_PATH);
+aepText.preferredSize = [480, 25];
+
+var aepButton = aepPathGroup.add("button", undefined, "ÊµèËßà");
+aepButton.preferredSize = [60, 25];
+
+// Âü∫Êú¨‰ø°ÊÅØÈÖçÁΩÆÂå∫Âüü
+var infoGroup = basicTab.add("group");
+infoGroup.orientation = "row";
+infoGroup.alignChildren = ["left", "center"];
+infoGroup.preferredSize = [560, 60];
+
+var artistGroup = infoGroup.add("group");
+artistGroup.orientation = "column";
+artistGroup.preferredSize = [270, 60];
+
+var artistLabel = artistGroup.add("statictext", undefined, "Ëâ∫ÊúØÂÆ∂ÂêçÁß∞:");
+artistLabel.preferredSize = [270, 20];
+var artistText = artistGroup.add("edittext", undefined, CONFIG.ARTIST_NAME);
+artistText.preferredSize = [270, 25];
+
+var versionGroup = infoGroup.add("group");
+versionGroup.orientation = "column";
+versionGroup.preferredSize = [270, 60];
+
+var versionLabel = versionGroup.add("statictext", undefined, "ÂâØÊ†áÈ¢òÂêçÁß∞:");
+versionLabel.preferredSize = [270, 20];
+var versionText = versionGroup.add("edittext", undefined, CONFIG.VERSION_NAME);
+versionText.preferredSize = [270, 25];
+
+// ÁõÆÂΩïÂàõÂª∫Âå∫Âüü
+var createGroup = basicTab.add("group");
+createGroup.orientation = "column";
+createGroup.alignChildren = ["left", "center"];
+createGroup.preferredSize = [560, 80];
+
+var createLabel = createGroup.add("statictext", undefined, "Âú®Á¥†ÊùêÊñá‰ª∂Â§πË∑ØÂæÑÂàõÂª∫ÁõÆÂΩïÁªìÊûÑ:");
+createLabel.preferredSize = [560, 20];
+
+var createInputGroup = createGroup.add("group");
+createInputGroup.preferredSize = [560, 30];
+
+var numLabel = createInputGroup.add("statictext", undefined, "Á¥†ÊùêÁªÑÊï∞Èáè:");
+numLabel.preferredSize = [80, 25];
+
+var numText = createInputGroup.add("edittext", undefined, "0");
+numText.preferredSize = [80, 25];
+
+var createButton = createInputGroup.add("button", undefined, "ÂàõÂª∫ÁõÆÂΩï");
+createButton.preferredSize = [100, 25];
+
+// ==================== Â≠óÂπïÈÖçÁΩÆÈÄâÈ°πÂç° ====================
+var subtitleTab = tabPanel.add("tab", undefined, "Â≠óÂπïÈÖçÁΩÆ");
+subtitleTab.orientation = "column";
+subtitleTab.alignChildren = ["left", "top"];
+
+// ÂêàÊàêËÆæÁΩÆ
+var compGroup = subtitleTab.add("group");
+compGroup.orientation = "column";
+compGroup.alignChildren = ["left", "center"];
+compGroup.preferredSize = [560, 120];
+
+var compLabel = compGroup.add("statictext", undefined, "ÂêàÊàêËÆæÁΩÆ:");
+compLabel.preferredSize = [560, 20];
+compLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
+
+var compRow1 = compGroup.add("group");
+compRow1.preferredSize = [560, 30];
+
+var widthLabel = compRow1.add("statictext", undefined, "ÂÆΩÂ∫¶:");
+widthLabel.preferredSize = [60, 25];
+var widthText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.WIDTH.toString());
+widthText.preferredSize = [80, 25];
+
+var heightLabel = compRow1.add("statictext", undefined, "È´òÂ∫¶:");
+heightLabel.preferredSize = [60, 25];
+var heightText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.HEIGHT.toString());
+heightText.preferredSize = [80, 25];
+
+var fpsLabel = compRow1.add("statictext", undefined, "Â∏ßÁéá:");
+fpsLabel.preferredSize = [60, 25];
+var fpsText = compRow1.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.FPS.toString());
+fpsText.preferredSize = [80, 25];
+
+var compRow2 = compGroup.add("group");
+compRow2.preferredSize = [560, 30];
+
+var posXLabel = compRow2.add("statictext", undefined, "‰ΩçÁΩÆ X:");
+posXLabel.preferredSize = [60, 25];
+var posXText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.Position[0].toString());
+posXText.preferredSize = [80, 25];
+
+var posYLabel = compRow2.add("statictext", undefined, "‰ΩçÁΩÆ Y:");
+posYLabel.preferredSize = [60, 25];
+var posYText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.Position[1].toString());
+posYText.preferredSize = [80, 25];
+
+var nameLabel = compRow2.add("statictext", undefined, "ÂêàÊàêÂêçÁß∞:");
+nameLabel.preferredSize = [80, 25];
+var nameText = compRow2.add("edittext", undefined, CONFIG.SUBTITLE.COMPOSITION.NAME);
+nameText.preferredSize = [120, 25];
+
+// ÊñáÊú¨Ê†∑ÂºèËÆæÁΩÆ
+var textStyleGroup = subtitleTab.add("group");
+textStyleGroup.orientation = "column";
+textStyleGroup.alignChildren = ["left", "center"];
+textStyleGroup.preferredSize = [560, 120];
+
+var textStyleLabel = textStyleGroup.add("statictext", undefined, "ÊñáÊú¨Ê†∑Âºè:");
+textStyleLabel.preferredSize = [560, 20];
+textStyleLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
+
+var textStyleRow1 = textStyleGroup.add("group");
+textStyleRow1.preferredSize = [560, 30];
+
+var fontSizeLabel = textStyleRow1.add("statictext", undefined, "Â≠ó‰ΩìÂ§ßÂ∞è:");
+fontSizeLabel.preferredSize = [80, 25];
+var fontSizeText = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.FONT_SIZE.toString());
+fontSizeText.preferredSize = [80, 25];
+
+var strokeLabel = textStyleRow1.add("statictext", undefined, "ÊèèËæπÂÆΩÂ∫¶:");
+strokeLabel.preferredSize = [80, 25];
+var strokeText = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.STROKE_WIDTH.toString());
+strokeText.preferredSize = [80, 25];
+
+var textStyleRow2 = textStyleGroup.add("group");
+textStyleRow2.preferredSize = [560, 30];
+
+var normalColorLabel = textStyleRow2.add("statictext", undefined, "ÊôÆÈÄöÈ¢úËâ≤(16ËøõÂà∂RGBÂÄº):");
+normalColorLabel.preferredSize = [80, 25];
+var normalColorText = textStyleRow2.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.NORMAL_COLOR);
+normalColorText.preferredSize = [120, 25];
+
+var highlightColorLabel = textStyleRow2.add("statictext", undefined, "È´ò‰∫ÆÈ¢úËâ≤(16ËøõÂà∂RGBÂÄº):");
+highlightColorLabel.preferredSize = [80, 25];
+var highlightColorText = textStyleRow2.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.HIGHLIGHT_COLOR);
+highlightColorText.preferredSize = [120, 25];
+
+// Â∏ÉÂ±ÄËÆæÁΩÆ
+var layoutGroup = subtitleTab.add("group");
+layoutGroup.orientation = "column";
+layoutGroup.alignChildren = ["left", "center"];
+layoutGroup.preferredSize = [560, 100];
+
+var layoutLabel = layoutGroup.add("statictext", undefined, "Â∏ÉÂ±ÄËÆæÁΩÆ:");
+layoutLabel.preferredSize = [560, 20];
+layoutLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
+
+var layoutRow1 = layoutGroup.add("group");
+layoutRow1.preferredSize = [560, 30];
+
+var lineSpacingLabel = layoutRow1.add("statictext", undefined, "Ë°åÈó¥Ë∑ù:");
+lineSpacingLabel.preferredSize = [80, 25];
+var lineSpacingText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.LINE_SPACING.toString());
+lineSpacingText.preferredSize = [80, 25];
+
+var paraSpacingLabel = layoutRow1.add("statictext", undefined, "ÊÆµÈó¥Ë∑ù:");
+paraSpacingLabel.preferredSize = [80, 25];
+var paraSpacingText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING.toString());
+paraSpacingText.preferredSize = [80, 25];
+
+var initialOffsetLabel = layoutRow1.add("statictext", undefined, "ÂàùÂßãÂÅèÁßª:");
+initialOffsetLabel.preferredSize = [80, 25];
+var initialOffsetText = layoutRow1.add("edittext", undefined, CONFIG.SUBTITLE.LAYOUT.INITIAL_OFFSET.toString());
+initialOffsetText.preferredSize = [80, 25];
+
+// Âä®ÁîªËÆæÁΩÆ
+var animationGroup = subtitleTab.add("group");
+animationGroup.orientation = "column";
+animationGroup.alignChildren = ["left", "center"];
+animationGroup.preferredSize = [560, 100];
+
+var animationLabel = animationGroup.add("statictext", undefined, "Âä®ÁîªËÆæÁΩÆ:");
+animationLabel.preferredSize = [560, 20];
+animationLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
+
+var animationRow1 = animationGroup.add("group");
+animationRow1.preferredSize = [560, 30];
+
+var durationLabel = animationRow1.add("statictext", undefined, "Âä®ÁîªÊó∂Èïø:");
+durationLabel.preferredSize = [80, 25];
+var durationText = animationRow1.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.DURATION.toString());
+durationText.preferredSize = [80, 25];
+durationText.helpTip = "Áßí";
+
+var fadeDelayLabel = animationRow1.add("statictext", undefined, "Ê∑°Âá∫Âª∂Ëøü:");
+fadeDelayLabel.preferredSize = [80, 25];
+var fadeDelayText = animationRow1.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.FADE_OUT_DELAY.toString());
+fadeDelayText.preferredSize = [80, 25];
+fadeDelayText.helpTip = "Áßí";
+
+var animationRow2 = animationGroup.add("group");
+animationRow2.preferredSize = [560, 30];
+
+var normalScaleLabel = animationRow2.add("statictext", undefined, "Ê≠£Â∏∏Áº©Êîæ:");
+normalScaleLabel.preferredSize = [80, 25];
+var normalScaleText = animationRow2.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE.toString());
+normalScaleText.preferredSize = [80, 25];
+normalScaleText.helpTip = "ÁôæÂàÜÊØî";
+
+var highlightScaleLabel = animationRow2.add("statictext", undefined, "È´ò‰∫ÆÁº©Êîæ:");
+highlightScaleLabel.preferredSize = [80, 25];
+var highlightScaleText = animationRow2.add("edittext", undefined, CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE.toString());
+highlightScaleText.preferredSize = [80, 25];
+highlightScaleText.helpTip = "ÁôæÂàÜÊØî";
+
+// ==================== ÊåâÈíÆÂå∫Âüü ====================
+var buttonGroup = dialog.add("group");
+buttonGroup.orientation = "row";
+buttonGroup.alignChildren = ["center", "center"];
+buttonGroup.preferredSize = [580, 40];
+
+var saveButton = buttonGroup.add("button", undefined, "‰øùÂ≠òÈÖçÁΩÆ");
+saveButton.preferredSize = [100, 30];
+
+var runButton = buttonGroup.add("button", undefined, "ËøêË°å‰∏ªÁ®ãÂ∫è");
+runButton.preferredSize = [100, 30];
+
+var cancelButton = buttonGroup.add("button", undefined, "ÂèñÊ∂à");
+cancelButton.preferredSize = [100, 30];
+
+// ==================== ‰∫ã‰ª∂Â§ÑÁêÜ ====================
+// ÊµèËßàÊñá‰ª∂Â§π
+folderButton.onClick = function() {
+	var selectedFolder = Folder.selectDialog("ÈÄâÊã©Á¥†ÊùêÊñá‰ª∂Â§π");
+	if (selectedFolder) {
+		folderText.text = selectedFolder.fsName;
+	}
+};
+
+// ÊµèËßàAEPÊñá‰ª∂
+aepButton.onClick = function() {
+	var selectedFile = File.openDialog("ÈÄâÊã©AEPÊ®°ÊùøÊñá‰ª∂", "*.aep");
+	if (selectedFile) {
+		aepText.text = selectedFile.fsName;
+	}
+};
+
+// ÂàõÂª∫ÁõÆÂΩïÁªìÊûÑ
+createButton.onClick = function() {
+	var num;
+	try {
+		num = parseInt(numText.text);
+		if (isNaN(num) || num < 0) {
+			alert("ËØ∑ËæìÂÖ•ÊúâÊïàÁöÑÊï∞Â≠ó");
+			return;
+		}
+	} catch (e) {
+		alert("ËØ∑ËæìÂÖ•ÊúâÊïàÁöÑÊï∞Â≠ó");
+		return;
+	}
+
+	var baseFolderPath = folderText.text;
+	if (!baseFolderPath) {
+		alert("ËØ∑ÂÖàËÆæÁΩÆÁ¥†ÊùêÊñá‰ª∂Â§πË∑ØÂæÑ");
+		return;
+	}
+
+	createDirectoryStructure(baseFolderPath, num);
+};
+
+// ‰øùÂ≠òÈÖçÁΩÆ
+saveButton.onClick = function() {
+	if (saveConfig()) {
+		alert("ÈÖçÁΩÆ‰øùÂ≠òÊàêÂäüÔºÅ");
+	}
+};
+
+// ËøêË°å‰∏ªÁ®ãÂ∫è
+runButton.onClick = function() {
+	if (saveConfig()) {
+		// ËøêË°å‰∏ªÁ®ãÂ∫è
+		$.evalFile(File($.fileName).path + "/main.jsx");
+
+	}
+};
+
+// ÂèñÊ∂à
+cancelButton.onClick = function() {
+	dialog.close();
+};
+
+// ==================== ÂäüËÉΩÂáΩÊï∞ ====================
+
+// ÂàõÂª∫ÁõÆÂΩïÁªìÊûÑÂáΩÊï∞
+function createDirectoryStructure(baseFolderPath, num) {
+	try {
+		// ÂàõÂª∫‰∏ªÁõÆÂΩïÁªìÊûÑ
+		var mainFolders = ["Èü≥‰πê", "ËÉåÊôØÂõæÂ±Ç", "Â∞ÅÈù¢ÂõæÂ±Ç", "Á¢üÁâáÂõæÂ±Ç", "Ê≠åËØç"];
+
+		for (var i = 0; i < mainFolders.length; i++) {
+			var folderPath = new Folder(baseFolderPath + "/" + mainFolders[i]);
+			if (!folderPath.exists) {
+				folderPath.create();
+			}
+		}
+
+		// ÂàõÂª∫Á¥†ÊùêÁªÑ
+		for (var j = 1; j <= num; j++) {
+			var materialGroup = "Á¥†ÊùêÁªÑ" + j;
+			var materialPath = new Folder(baseFolderPath + "/" + materialGroup);
+			if (!materialPath.exists) {
+				materialPath.create();
+			}
+
+			// Âú®ÊØè‰∏™Á¥†ÊùêÁªÑ‰∏ãÂàõÂª∫Â≠êÁõÆÂΩï
+			for (var k = 0; k < mainFolders.length; k++) {
+				var subFolderPath = new Folder(materialPath.fsName + "/" + mainFolders[k]);
+				if (!subFolderPath.exists) {
+					subFolderPath.create();
+				}
+			}
+		}
+
+		alert("ÁõÆÂΩïÁªìÊûÑÂàõÂª∫ÊàêÂäüÔºÅ\nÂú® " + baseFolderPath + " ‰∏≠ÂàõÂª∫‰∫Ü " + num + " ‰∏™Á¥†ÊùêÁªÑ");
+
+	} catch (e) {
+		alert("ÂàõÂª∫ÁõÆÂΩïÊó∂Âá∫Áé∞ÈîôËØØÔºö" + e.toString());
+	}
 }
+
+// È™åËØÅÈ¢úËâ≤Ê†ºÂºè
+function validateColor(colorText) {
+	return /^#[0-9A-F]{6}$/i.test(colorText);
+}
+
+// ‰øùÂ≠òÈÖçÁΩÆÂà∞config.jsx
+function saveConfig() {
+	// È™åËØÅÈ¢úËâ≤Ê†ºÂºè
+	if (!validateColor(normalColorText.text)) {
+		alert("ÈîôËØØÔºöÊôÆÈÄöÈ¢úËâ≤Ê†ºÂºè‰∏çÊ≠£Á°ÆÔºÅ\nËØ∑‰ΩøÁî®RGBÊ†ºÂºèÔºåÂ¶ÇÔºö#FFFFFF");
+		normalColorText.active = true;
+		return false;
+	}
+
+	if (!validateColor(highlightColorText.text)) {
+		alert("ÈîôËØØÔºöÈ´ò‰∫ÆÈ¢úËâ≤Ê†ºÂºè‰∏çÊ≠£Á°ÆÔºÅ\nËØ∑‰ΩøÁî®RGBÊ†ºÂºèÔºåÂ¶ÇÔºö#FFCC33");
+		highlightColorText.active = true;
+		return false;
+	}
+
+	// È™åËØÅÊï∞Â≠óÂ≠óÊÆµ
+	var numberFields = [{
+			field: widthText,
+			name: "ÂêàÊàêÂÆΩÂ∫¶"
+		},
+		{
+			field: heightText,
+			name: "ÂêàÊàêÈ´òÂ∫¶"
+		},
+		{
+			field: fpsText,
+			name: "Â∏ßÁéá"
+		},
+		{
+			field: posXText,
+			name: "‰ΩçÁΩÆX"
+		},
+		{
+			field: posYText,
+			name: "‰ΩçÁΩÆY"
+		},
+		{
+			field: fontSizeText,
+			name: "Â≠ó‰ΩìÂ§ßÂ∞è"
+		},
+		{
+			field: strokeText,
+			name: "ÊèèËæπÂÆΩÂ∫¶"
+		},
+		{
+			field: lineSpacingText,
+			name: "Ë°åÈó¥Ë∑ù"
+		},
+		{
+			field: paraSpacingText,
+			name: "ÊÆµÈó¥Ë∑ù"
+		},
+		{
+			field: initialOffsetText,
+			name: "ÂàùÂßãÂÅèÁßª"
+		},
+		{
+			field: durationText,
+			name: "Âä®ÁîªÊó∂Èïø"
+		},
+		{
+			field: fadeDelayText,
+			name: "Ê∑°Âá∫Âª∂Ëøü"
+		},
+		{
+			field: normalScaleText,
+			name: "Ê≠£Â∏∏Áº©Êîæ"
+		},
+		{
+			field: highlightScaleText,
+			name: "È´ò‰∫ÆÁº©Êîæ"
+		}
+	];
+
+	for (var i = 0; i < numberFields.length; i++) {
+		var field = numberFields[i];
+		var value = parseFloat(field.field.text);
+		if (isNaN(value)) {
+			alert("ÈîôËØØÔºö" + field.name + "ÂøÖÈ°ªÊòØÊï∞Â≠óÔºÅ");
+			field.field.active = true;
+			return false;
+		}
+	}
+
+	var configContent = generateConfigContent();
+	var configFile = new File(File($.fileName).path + "/config.jsx");
+
+	try {
+		configFile.open("w");
+		configFile.write(configContent);
+		configFile.close();
+
+		// ÈáçÊñ∞Âä†ËΩΩÈÖçÁΩÆ
+		$.evalFile(configFile);
+		return true;
+
+	} catch (e) {
+		alert("‰øùÂ≠òÈÖçÁΩÆÊó∂Âá∫ÈîôÔºö" + e.toString());
+		return false;
+	}
+}
+
+// ÁîüÊàêÈÖçÁΩÆÊñá‰ª∂ÂÜÖÂÆπÔºà‰ºòÂåñÁâàÔºâ
+function generateConfigContent() {
+	var content = '// config.jsx - ÈÖçÁΩÆ‰ø°ÊÅØËÑöÊú¨\n\n';
+	content += '// ==================== ÈÖçÁΩÆÂå∫Âüü ====================\n\n';
+	content += '// Á¥†ÊùêÊñá‰ª∂Â§πË∑ØÂæÑÔºåÂøÖÂ°´\n';
+	content += 'var CONFIG = {\n';
+	content += '    FOLDER_PATH: "' + folderText.text + '",\n';
+	content += '    \n';
+	content += '    // aepÊ®°ÊùøÊñá‰ª∂Ë∑ØÂæÑÔºåÂøÖÂ°´\n';
+	content += '    AEP_PATH: "' + aepText.text + '",\n';
+	content += '    \n';
+	content += '    // Ëâ∫ÊúØÂÆ∂ÂêçÁß∞ÔºåÂ°´ÂÜôÂêéË¶ÜÁõñWAV Èü≥‰πêÊñá‰ª∂ÂêçÁöÑËâ∫ÊúØÂÆ∂ÔºåÂèØ‰∏çÂ°´\n';
+	content += '    ARTIST_NAME: "' + artistText.text + '",\n';
+	content += '    \n';
+	content += '    // ÂâØÊ†áÈ¢òÂêçÁß∞ÔºåÂèØ‰∏çÂ°´\n';
+	content += '    VERSION_NAME: "' + versionText.text + '",\n';
+	content += '    \n';
+	content += '    // ==================== Â≠óÂπïÊ†∑ÂºèÈÖçÁΩÆÂå∫Âüü ====================\n';
+	content += '    SUBTITLE: {\n';
+	content += '        // ÂêàÊàêËÆæÁΩÆ\n';
+	content += '        COMPOSITION: {\n';
+	content += '            WIDTH: ' + parseInt(widthText.text) + ',\n';
+	content += '            HEIGHT: ' + parseInt(heightText.text) + ',\n';
+	content += '            Position: [' + parseFloat(posXText.text) + ', ' + parseFloat(posYText.text) + '],\n';
+	content += '            FPS: ' + parseInt(fpsText.text) + ',\n';
+	content += '            NAME: "' + nameText.text + '"\n';
+	content += '        },\n';
+	content += '        \n';
+	content += '        // ÊñáÊú¨Ê†∑Âºè\n';
+	content += '        TEXT_STYLE: {\n';
+	content += '            FONT_SIZE: ' + parseFloat(fontSizeText.text) + ',\n';
+	content += '            STROKE_WIDTH: ' + parseFloat(strokeText.text) + ',\n';
+	content += '            NORMAL_COLOR: "' + normalColorText.text + '", // ÁôΩËâ≤\n';
+	content += '            HIGHLIGHT_COLOR: "' + highlightColorText.text + '", // ÈáëËâ≤\n';
+	content += '            JUSTIFICATION: ParagraphJustification.CENTER_JUSTIFY\n';
+	content += '        },\n';
+	content += '        \n';
+	content += '        // Â∏ÉÂ±ÄËÆæÁΩÆ\n';
+	content += '        LAYOUT: {\n';
+	content += '            LINE_SPACING: ' + parseFloat(lineSpacingText.text) + ', // Ë°åÈó¥Ë∑ù\n';
+	content += '            PARAGRAPH_SPACING: ' + parseFloat(paraSpacingText.text) + ', // ÊÆµÈó¥Ë∑ù\n';
+	content += '            INITIAL_OFFSET: ' + parseFloat(initialOffsetText.text) + ' // ÂàùÂßãÂÅèÁßª\n';
+	content += '        },\n';
+	content += '        \n';
+	content += '        // Âä®ÁîªËÆæÁΩÆ\n';
+	content += '        ANIMATION: {\n';
+	content += '            DURATION: ' + parseFloat(durationText.text) + ', // Âä®ÁîªÊåÅÁª≠Êó∂Èó¥ÔºàÁßíÔºâ\n';
+	content += '            HIGHLIGHT_SCALE: ' + parseFloat(highlightScaleText.text) + ', // Âº∫Ë∞ÉÁº©ÊîæÁôæÂàÜÊØî\n';
+	content += '            NORMAL_SCALE: ' + parseFloat(normalScaleText.text) + ', // Ê≠£Â∏∏Áº©ÊîæÁôæÂàÜÊØî\n';
+	content += '            FADE_OUT_DELAY: ' + parseFloat(fadeDelayText.text) + ' // Ê∑°Âá∫Âª∂ËøüÔºàÁßíÔºâ\n';
+	content += '        }\n';
+	content += '    }\n';
+	content += '};\n\n';
+	content += '// ==================== ÈÖçÁΩÆÂå∫ÂüüÁªìÊùü ====================';
+
+	return content;
+}
+
+// ÊòæÁ§∫ÂØπËØùÊ°Ü
+dialog.show();

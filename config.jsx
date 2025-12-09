@@ -4,10 +4,10 @@
 
 // 素材文件夹路径，必填
 var CONFIG = {
-    FOLDER_PATH: "D:/Temp/歌单二期",
+    FOLDER_PATH: "D:/Temp/歌单三期",
     
     // aep模板文件路径，必填
-    AEP_PATH: "D:/Kin-project/VideoClip/music_video/template.aep",
+    AEP_PATH: "D:/Kin-project/JSProjects/MusicDynamic/template.aep",
     
     // 艺术家名称，填写后覆盖WAV 音乐文件名的艺术家，可不填
     ARTIST_NAME: "",
