@@ -4,7 +4,7 @@
 
 // 素材文件夹路径，必填
 var CONFIG = {
-    FOLDER_PATH: "D:/Temp/歌单三期",
+    FOLDER_PATH: "D:/Temp/新建文件夹",
     
     // aep模板文件路径，必填
     AEP_PATH: "D:/Kin-project/JSProjects/MusicDynamic/template.aep",
@@ -28,17 +28,27 @@ var CONFIG = {
         
         // 文本样式
         TEXT_STYLE: {
-            FONT_SIZE: 36,
-            STROKE_WIDTH: 6,
             NORMAL_COLOR: "#FFFFFF", // 白色
             HIGHLIGHT_COLOR: "#FFCC33", // 金色
             JUSTIFICATION: ParagraphJustification.CENTER_JUSTIFY
         },
         
+        MAIN_TEXT_STYLE: {
+            FONT_SIZE: 36,
+            STROKE_WIDTH: 6,
+            OPACITY: 100,
+        },
+        
+        SUB_TEXT_STYLE: {
+            FONT_SIZE: 24,
+            STROKE_WIDTH: 4,
+            OPACITY: 80,
+        },
+        
         // 布局设置
         LAYOUT: {
-            LINE_SPACING: 52, // 行间距
-            PARAGRAPH_SPACING: 20, // 段间距
+            LINE_SPACING: 6, // 行间距
+            PARAGRAPH_SPACING: 12, // 段间距
             INITIAL_OFFSET: 90 // 初始偏移
         },
         

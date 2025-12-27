@@ -1,5 +1,6 @@
 // subtitle.jsx - 字幕处理功能
 #include "config.jsx"
+
 #include "utils.jsx"
 
 
@@ -58,7 +59,9 @@ function createSubtitleLayers(comp, timeTeams) {
         team.initialY = currentY;
 
         // 计算下一组的位置
-        var change_y = CONFIG.SUBTITLE.LAYOUT.LINE_SPACING * team.lineNum + CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING;
+        var change_y = CONFIG.SUBTITLE.MAIN_TEXT_STYLE.FONT_SIZE +
+            (CONFIG.SUBTITLE.LAYOUT.LINE_SPACING + CONFIG.SUBTITLE.SUB_TEXT_STYLE.FONT_SIZE) *
+            (team.lineNum - 1) + CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING;
         currentY += change_y;
     }
 
@@ -75,8 +78,16 @@ function createSubtitleLayers(comp, timeTeams) {
 
             // 应用文本样式配置
             textDoc.justification = CONFIG.SUBTITLE.TEXT_STYLE.JUSTIFICATION;
-            textDoc.fontSize = CONFIG.SUBTITLE.TEXT_STYLE.FONT_SIZE;
-            textDoc.strokeWidth = CONFIG.SUBTITLE.TEXT_STYLE.STROKE_WIDTH;
+            if (j == 0) {
+                textDoc.fontSize = CONFIG.SUBTITLE.MAIN_TEXT_STYLE.FONT_SIZE;
+                textDoc.strokeWidth = CONFIG.SUBTITLE.MAIN_TEXT_STYLE.STROKE_WIDTH;
+            } else {
+                textDoc.fontSize = CONFIG.SUBTITLE.SUB_TEXT_STYLE.FONT_SIZE;
+                textDoc.strokeWidth = CONFIG.SUBTITLE.SUB_TEXT_STYLE.STROKE_WIDTH;
+            }
+
+
+
             textDoc.fillColor = hexToRgbNormalized(CONFIG.SUBTITLE.TEXT_STYLE.NORMAL_COLOR);
             sourceText.setValue(textDoc);
 
@@ -84,7 +95,14 @@ function createSubtitleLayers(comp, timeTeams) {
             var textProp = textLayer.property("ADBE Transform Group").property("ADBE Position");
             var textPosition = textProp.value;
             textPosition[0] = comp.width / 2; // 水平居中
-            textPosition[1] = team.initialY + j * CONFIG.SUBTITLE.LAYOUT.LINE_SPACING; // 垂直位置
+            if (j == 0) {
+                textPosition[1] = team.initialY;
+            } else {
+                textPosition[1] = team.initialY +
+                    (CONFIG.SUBTITLE.SUB_TEXT_STYLE.FONT_SIZE +
+                        CONFIG.SUBTITLE.LAYOUT.LINE_SPACING
+                    ) * j
+            } // 垂直位置
             textProp.setValue(textPosition);
 
             // 设置初始透明度为0
@@ -122,7 +140,12 @@ function setupAnimations(comp, timeTeams, textLayers) {
 
             // 淡入关键帧
             layerInfo.opacityProp.setValueAtTime(0, 0);
-            layerInfo.opacityProp.setValueAtTime(animDuration, 100);
+            if (j == 0) {
+                layerInfo.opacityProp.setValueAtTime(animDuration, CONFIG.SUBTITLE.MAIN_TEXT_STYLE.OPACITY);
+            } else {
+                layerInfo.opacityProp.setValueAtTime(animDuration, CONFIG.SUBTITLE.SUB_TEXT_STYLE.OPACITY);
+            }
+
         }
     }
 
@@ -132,8 +155,9 @@ function setupAnimations(comp, timeTeams, textLayers) {
     for (var i = 0; i < timeTeams.length; i++) {
         var team = timeTeams[i];
         var startTime = team.startTime;
-        var change_y = CONFIG.SUBTITLE.LAYOUT.LINE_SPACING * team.lineNum + CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING;
-
+        var change_y = CONFIG.SUBTITLE.MAIN_TEXT_STYLE.FONT_SIZE +
+            (CONFIG.SUBTITLE.LAYOUT.LINE_SPACING + CONFIG.SUBTITLE.SUB_TEXT_STYLE.FONT_SIZE) *
+            (team.lineNum - 1) + CONFIG.SUBTITLE.LAYOUT.PARAGRAPH_SPACING;
         // 为所有图层设置移动动画
         for (var k = 0; k < textLayers.length; k++) {
             for (var l = 0; l < textLayers[k].length; l++) {
@@ -144,9 +168,9 @@ function setupAnimations(comp, timeTeams, textLayers) {
                 var currentPosition = positionProp.value;
                 // 设置移动关键帧
                 currentPosition[1] -= accumulatedOffset;
-                positionProp.setValueAtTime(startTime - animDuration/2, currentPosition);
+                positionProp.setValueAtTime(startTime - animDuration / 2, currentPosition);
                 currentPosition[1] -= change_y; // 向上移动
-                positionProp.setValueAtTime(startTime + animDuration/2, currentPosition);
+                positionProp.setValueAtTime(startTime + animDuration / 2, currentPosition);
             }
         }
         accumulatedOffset += change_y;
@@ -158,9 +182,9 @@ function setupAnimations(comp, timeTeams, textLayers) {
                 var prevLayerInfo = textLayers[i - 1][l];
 
                 // 缩放动画
-                prevLayerInfo.scaleProp.setValueAtTime(startTime - animDuration/2,
+                prevLayerInfo.scaleProp.setValueAtTime(startTime - animDuration / 2,
                     [CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE, CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE]);
-                prevLayerInfo.scaleProp.setValueAtTime(startTime + animDuration/2,
+                prevLayerInfo.scaleProp.setValueAtTime(startTime + animDuration / 2,
                     [CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE, CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE]);
 
                 // 颜色动画：从高亮色变回普通白色
@@ -176,9 +200,9 @@ function setupAnimations(comp, timeTeams, textLayers) {
             var currLayerInfo = textLayers[i][l];
 
             // 缩放动画
-            currLayerInfo.scaleProp.setValueAtTime(startTime - animDuration/2,
+            currLayerInfo.scaleProp.setValueAtTime(startTime - animDuration / 2,
                 [CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE, CONFIG.SUBTITLE.ANIMATION.NORMAL_SCALE]);
-            currLayerInfo.scaleProp.setValueAtTime(startTime + animDuration/2,
+            currLayerInfo.scaleProp.setValueAtTime(startTime + animDuration / 2,
                 [CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE, CONFIG.SUBTITLE.ANIMATION.HIGHLIGHT_SCALE]);
 
             // 颜色动画：从白色变为高亮色
@@ -198,7 +222,12 @@ function setupAnimations(comp, timeTeams, textLayers) {
             var layerInfo = textLayers[i][j];
 
             // 淡出关键帧
-            layerInfo.opacityProp.setValueAtTime(fadeOutStartTime, 100);
+
+            if (j == 0) {
+                layerInfo.opacityProp.setValueAtTime(fadeOutStartTime, CONFIG.SUBTITLE.MAIN_TEXT_STYLE.OPACITY);
+            } else {
+                layerInfo.opacityProp.setValueAtTime(fadeOutStartTime, CONFIG.SUBTITLE.SUB_TEXT_STYLE.OPACITY);
+            }
             layerInfo.opacityProp.setValueAtTime(fadeOutStartTime + animDuration, 0);
         }
     }
@@ -207,7 +236,7 @@ function setupAnimations(comp, timeTeams, textLayers) {
 // 改变文本颜色
 function changeTextColor(textLayer, startTime, endTime, startColor, endColor) {
     var sourceText = textLayer.property("Source Text");
-    
+
     // 转换16进制颜色为RGB数组
     var startRgb = hexToRgbNormalized(startColor);
     var endRgb = hexToRgbNormalized(endColor);
@@ -260,11 +289,11 @@ function lrcToTimeTeams(lrcContent) {
 
                 // 转换为总毫秒数
                 var totalMilliseconds = (parseInt(minutes) * 60 + parseInt(seconds)) * 1000 + msValue;
-                
+
                 // 添加到时间列表（去重）
                 if (timelist.indexOf(totalMilliseconds) === -1) {
                     timelist.push(totalMilliseconds);
-                    
+
                     // 创建时间条目
                     timeTeams.push({
                         startTime: totalMilliseconds / 1000, // 转换为秒
@@ -315,4 +344,3 @@ function lrcToTimeTeams(lrcContent) {
 
     return timeTeams;
 }
-
