@@ -1,10 +1,11 @@
 // gui.jsx - 配置GUI系统
 #include "config.jsx"
+
 #include "utils.jsx"
+
 #include "subtitle.jsx"
 
 // 修改颜色验证函数
-
 
 // 创建主窗口
 var dialog = new Window("dialog", "视频制作配置系统");
@@ -39,6 +40,14 @@ folderText.preferredSize = [480, 25];
 var folderButton = folderPathGroup.add("button", undefined, "浏览");
 folderButton.preferredSize = [60, 25];
 
+var createGroup = folderGroup.add("group");
+createGroup.preferredSize = [560, 30];
+
+var createLabel = createGroup.add("statictext", undefined, "在素材文件夹路径创建目录结构:");
+createLabel.preferredSize = [200, 20];
+
+var createButton = createGroup.add("button", undefined, "创建目录");
+createButton.preferredSize = [100, 25];
 // AEP模板配置区域
 var aepGroup = basicTab.add("group");
 aepGroup.orientation = "column";
@@ -80,27 +89,6 @@ var versionLabel = versionGroup.add("statictext", undefined, "副标题名称:")
 versionLabel.preferredSize = [270, 20];
 var versionText = versionGroup.add("edittext", undefined, CONFIG.VERSION_NAME);
 versionText.preferredSize = [270, 25];
-
-// 目录创建区域
-var createGroup = basicTab.add("group");
-createGroup.orientation = "column";
-createGroup.alignChildren = ["left", "center"];
-createGroup.preferredSize = [560, 80];
-
-var createLabel = createGroup.add("statictext", undefined, "在素材文件夹路径创建目录结构:");
-createLabel.preferredSize = [560, 20];
-
-var createInputGroup = createGroup.add("group");
-createInputGroup.preferredSize = [560, 30];
-
-var numLabel = createInputGroup.add("statictext", undefined, "素材组数量:");
-numLabel.preferredSize = [80, 25];
-
-var numText = createInputGroup.add("edittext", undefined, "0");
-numText.preferredSize = [80, 25];
-
-var createButton = createInputGroup.add("button", undefined, "创建目录");
-createButton.preferredSize = [100, 25];
 
 // ==================== 字幕配置选项卡 ====================
 var subtitleTab = tabPanel.add("tab", undefined, "字幕配置");
@@ -166,15 +154,38 @@ textStyleLabel.graphics.font = ScriptUI.newFont("Arial", "BOLD", 12);
 var textStyleRow1 = textStyleGroup.add("group");
 textStyleRow1.preferredSize = [560, 30];
 
-var fontSizeLabel = textStyleRow1.add("statictext", undefined, "字体大小:");
-fontSizeLabel.preferredSize = [80, 25];
-var fontSizeText = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.FONT_SIZE.toString());
-fontSizeText.preferredSize = [80, 25];
+var fontSizeLabelm = textStyleRow1.add("statictext", undefined, "主行字体大小:");
+fontSizeLabelm.preferredSize = [100, 25];
+var fontSizeTextm = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.MAIN_TEXT_STYLE.FONT_SIZE.toString());
+fontSizeTextm.preferredSize = [60, 25];
 
-var strokeLabel = textStyleRow1.add("statictext", undefined, "描边宽度:");
-strokeLabel.preferredSize = [80, 25];
-var strokeText = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.TEXT_STYLE.STROKE_WIDTH.toString());
-strokeText.preferredSize = [80, 25];
+var strokeLabelm = textStyleRow1.add("statictext", undefined, "描边宽度:");
+strokeLabelm.preferredSize = [80, 25];
+var strokeTextm = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.MAIN_TEXT_STYLE.STROKE_WIDTH.toString());
+strokeTextm.preferredSize = [60, 25];
+
+var opacityLabelm = textStyleRow1.add("statictext", undefined, "透明度(%):");
+opacityLabelm.preferredSize = [80, 25];
+var opacityTextm = textStyleRow1.add("edittext", undefined, CONFIG.SUBTITLE.MAIN_TEXT_STYLE.OPACITY.toString());
+opacityTextm.preferredSize = [60, 25];
+
+var textStyleRow3 = textStyleGroup.add("group");
+textStyleRow3.preferredSize = [560, 30];
+
+var fontSizeLabels = textStyleRow3.add("statictext", undefined, "副行字体大小:");
+fontSizeLabels.preferredSize = [100, 25];
+var fontSizeTexts = textStyleRow3.add("edittext", undefined, CONFIG.SUBTITLE.SUB_TEXT_STYLE.FONT_SIZE.toString());
+fontSizeTexts.preferredSize = [60, 25];
+
+var strokeLabels = textStyleRow3.add("statictext", undefined, "描边宽度:");
+strokeLabels.preferredSize = [80, 25];
+var strokeTexts = textStyleRow3.add("edittext", undefined, CONFIG.SUBTITLE.SUB_TEXT_STYLE.STROKE_WIDTH.toString());
+strokeTexts.preferredSize = [60, 25];
+
+var opacityLabels = textStyleRow3.add("statictext", undefined, "透明度(%):");
+opacityLabels.preferredSize = [80, 25];
+var opacityTexts = textStyleRow3.add("edittext", undefined, CONFIG.SUBTITLE.SUB_TEXT_STYLE.OPACITY.toString());
+opacityTexts.preferredSize = [60, 25];
 
 var textStyleRow2 = textStyleGroup.add("group");
 textStyleRow2.preferredSize = [560, 30];
@@ -291,25 +302,13 @@ aepButton.onClick = function() {
 
 // 创建目录结构
 createButton.onClick = function() {
-	var num;
-	try {
-		num = parseInt(numText.text);
-		if (isNaN(num) || num < 0) {
-			alert("请输入有效的数字");
-			return;
-		}
-	} catch (e) {
-		alert("请输入有效的数字");
-		return;
-	}
-
 	var baseFolderPath = folderText.text;
 	if (!baseFolderPath) {
 		alert("请先设置素材文件夹路径");
 		return;
 	}
 
-	createDirectoryStructure(baseFolderPath, num);
+	createDirectoryStructure(baseFolderPath, 0);
 };
 
 // 保存配置
@@ -394,62 +393,78 @@ function saveConfig() {
 
 	// 验证数字字段
 	var numberFields = [{
-			field: widthText,
-			name: "合成宽度"
-		},
-		{
-			field: heightText,
-			name: "合成高度"
-		},
-		{
-			field: fpsText,
-			name: "帧率"
-		},
-		{
-			field: posXText,
-			name: "位置X"
-		},
-		{
-			field: posYText,
-			name: "位置Y"
-		},
-		{
-			field: fontSizeText,
-			name: "字体大小"
-		},
-		{
-			field: strokeText,
-			name: "描边宽度"
-		},
-		{
-			field: lineSpacingText,
-			name: "行间距"
-		},
-		{
-			field: paraSpacingText,
-			name: "段间距"
-		},
-		{
-			field: initialOffsetText,
-			name: "初始偏移"
-		},
-		{
-			field: durationText,
-			name: "动画时长"
-		},
-		{
-			field: fadeDelayText,
-			name: "淡出延迟"
-		},
-		{
-			field: normalScaleText,
-			name: "正常缩放"
-		},
-		{
-			field: highlightScaleText,
-			name: "高亮缩放"
-		}
-	];
+                field: widthText,
+                name: "合成宽度"
+            },
+            {
+                field: heightText,
+                name: "合成高度"
+            },
+            {
+                field: fpsText,
+                name: "帧率"
+            },
+            {
+                field: posXText,
+                name: "位置X"
+            },
+            {
+                field: posYText,
+                name: "位置Y"
+            },
+            {
+                field: fontSizeTextm,
+                name: "主行字体大小"
+            },
+            {
+                field: strokeTextm,
+                name: "描边宽度"
+            },
+            {
+                field: strokeTextm,
+                name: "透明度(%):"
+            },
+            {
+                field: fontSizeTexts,
+                name: "副行字体大小"
+            },
+            {
+                field: strokeTexts,
+                name: "描边宽度"
+            },
+            {
+                field: strokeTexts,
+                name: "透明度(%):"
+            },
+            {
+                field: lineSpacingText,
+                name: "行间距"
+            },
+            {
+                field: paraSpacingText,
+                name: "段间距"
+            },
+            {
+                field: initialOffsetText,
+                name: "初始偏移"
+            },
+            {
+                field: durationText,
+                name: "动画时长"
+            },
+            {
+                field: fadeDelayText,
+                name: "淡出延迟"
+            },
+            {
+                field: normalScaleText,
+                name: "正常缩放"
+            },
+            {
+                field: highlightScaleText,
+                name: "高亮缩放"
+            }
+        ];
 
 	for (var i = 0; i < numberFields.length; i++) {
 		var field = numberFields[i];
@@ -509,11 +524,21 @@ function generateConfigContent() {
 	content += '        \n';
 	content += '        // 文本样式\n';
 	content += '        TEXT_STYLE: {\n';
-	content += '            FONT_SIZE: ' + parseFloat(fontSizeText.text) + ',\n';
-	content += '            STROKE_WIDTH: ' + parseFloat(strokeText.text) + ',\n';
 	content += '            NORMAL_COLOR: "' + normalColorText.text + '", // 白色\n';
 	content += '            HIGHLIGHT_COLOR: "' + highlightColorText.text + '", // 金色\n';
 	content += '            JUSTIFICATION: ParagraphJustification.CENTER_JUSTIFY\n';
+	content += '        },\n';
+	content += '        \n';
+	content += '        MAIN_TEXT_STYLE: {\n';
+	content += '            FONT_SIZE: ' + parseFloat(fontSizeTextm.text) + ',\n';
+	content += '            STROKE_WIDTH: ' + parseFloat(strokeTextm.text) + ',\n';
+	content += '            OPACITY: ' + parseFloat(opacityTextm.text) + ',\n';
+	content += '        },\n';
+	content += '        \n';
+	content += '        SUB_TEXT_STYLE: {\n';
+	content += '            FONT_SIZE: ' + parseFloat(fontSizeTexts.text) + ',\n';
+	content += '            STROKE_WIDTH: ' + parseFloat(strokeTexts.text) + ',\n';
+	content += '            OPACITY: ' + parseFloat(opacityTexts.text) + ',\n';
 	content += '        },\n';
 	content += '        \n';
 	content += '        // 布局设置\n';

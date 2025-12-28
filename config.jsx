@@ -4,7 +4,7 @@
 
 // 素材文件夹路径，必填
 var CONFIG = {
-    FOLDER_PATH: "D:/Temp/新建文件夹",
+    FOLDER_PATH: "D:/Kin-project/VideoClip/星塔音乐/梦的彼岸",
     
     // aep模板文件路径，必填
     AEP_PATH: "D:/Kin-project/JSProjects/MusicDynamic/template.aep",
@@ -47,8 +47,8 @@ var CONFIG = {
         
         // 布局设置
         LAYOUT: {
-            LINE_SPACING: 6, // 行间距
-            PARAGRAPH_SPACING: 12, // 段间距
+            LINE_SPACING: 10, // 行间距
+            PARAGRAPH_SPACING: 14, // 段间距
             INITIAL_OFFSET: 90 // 初始偏移
         },
         

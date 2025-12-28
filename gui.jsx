@@ -414,12 +414,28 @@
                 name: "位置Y"
             },
             {
-                field: fontSizeText,
-                name: "字体大小"
+                field: fontSizeTextm,
+                name: "主行字体大小"
             },
             {
-                field: strokeText,
+                field: strokeTextm,
                 name: "描边宽度"
+            },
+            {
+                field: strokeTextm,
+                name: "透明度(%):"
+            },
+            {
+                field: fontSizeTexts,
+                name: "副行字体大小"
+            },
+            {
+                field: strokeTexts,
+                name: "描边宽度"
+            },
+            {
+                field: strokeTexts,
+                name: "透明度(%):"
             },
             {
                 field: lineSpacingText,
